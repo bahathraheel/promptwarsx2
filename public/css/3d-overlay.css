@@ -1,0 +1,132 @@
+/* ═══════════════════════════════════════════════════════════
+   ELITE ELECTION — 3D Overlay Styles
+   Panels positioned over the WebGL canvas
+   ═══════════════════════════════════════════════════════════ */
+
+/* Canvas container */
+#canvas-container {
+  position: fixed; inset: 0;
+  z-index: var(--z-canvas);
+}
+
+#three-canvas {
+  width: 100%; height: 100%;
+  display: block;
+}
+
+/* Cyber Grid Background */
+.cyber-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: 
+    linear-gradient(hsla(220, 90%, 56%, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(220, 90%, 56%, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+  animation: gridMove 10s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent, black 80%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 80%);
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to { background-position: 0 50px; }
+}
+
+/* Scroll spacer — creates scrollable height for GSAP ScrollTrigger */
+#scroll-spacer {
+  height: 500vh;
+  position: relative;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hero overlay */
+.hero-overlay {
+  position: fixed; inset: 0;
+  z-index: var(--z-overlay);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--transition-slow);
+}
+.hero-overlay.hidden { opacity: 0; }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl); font-weight: 900;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: var(--space-md);
+  animation: slideUp 1s ease-out;
+}
+.hero-subtitle {
+  font-size: var(--text-xl); color: var(--elite-text-secondary);
+  max-width: 500px; animation: slideUp 1s ease-out 0.2s both;
+}
+.hero-scroll-hint {
+  position: absolute; bottom: 60px;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-sm);
+  color: var(--elite-text-muted); font-size: var(--text-sm);
+  animation: float 2s ease-in-out infinite;
+  pointer-events: auto;
+}
+.scroll-arrow {
+  width: 24px; height: 24px; border-right: 2px solid var(--elite-text-muted);
+  border-bottom: 2px solid var(--elite-text-muted);
+  transform: rotate(45deg);
+}
+
+/* Progress bar */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; background: var(--gradient-primary);
+  z-index: calc(var(--z-nav) + 1);
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* Zone label floating */
+.zone-label {
+  position: fixed; top: 80px; left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-overlay);
+  font-family: var(--font-display); font-size: var(--text-2xl);
+  font-weight: 700; color: var(--elite-text);
+  text-align: center;
+  opacity: 0; transition: opacity var(--transition-slow);
+}
+.zone-label.visible { opacity: 1; }
+.zone-label .zone-label-icon { font-size: var(--text-3xl); display: block; margin-bottom: var(--space-xs); }
+
+/* Loading screen */
+.loading-screen {
+  position: fixed; inset: 0;
+  z-index: calc(var(--z-modal) + 10);
+  background: var(--elite-bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity 0.6s ease-out;
+}
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+
+.loading-logo {
+  font-family: var(--font-display); font-size: var(--text-4xl);
+  font-weight: 900; margin-bottom: var(--space-xl);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.loading-bar-track {
+  width: 200px; height: 4px;
+  background: var(--elite-surface); border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.loading-bar-fill {
+  height: 100%; background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  width: 0%; transition: width 0.3s ease-out;
+}
+.loading-text {
+  margin-top: var(--space-md); font-size: var(--text-sm);
+  color: var(--elite-text-muted);
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ELITE ELECTION — An immersive 3D AI-powered election assistant. Understand voter registration, timelines, polling day, and results with interactive guidance.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="ELITE ELECTION — Your Interactive Election Guide">
+  <meta property="og:description" content="Navigate the election process in an immersive 3D experience with AI-powered assistance.">
+  <meta property="og:type" content="website">
+  <title>ELITE ELECTION — Interactive Election Guide</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/3d-overlay.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/accessibility.css">
+</head>
+<body>
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-link" id="skip-nav">Skip to main content</a>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen" role="alert" aria-live="polite" aria-label="Loading application">
+    <div class="loading-logo">🗳️ ELITE ELECTION</div>
+    <div class="loading-bar-track"><div class="loading-bar-fill" id="loading-bar"></div></div>
+    <div class="loading-text" id="loading-text">Initializing 3D environment…</div>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand">
+      <span class="nav-brand-icon" aria-hidden="true">🗳️</span>
+      <span>ELITE ELECTION</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link" data-zone="welcome" id="nav-welcome" aria-label="Go to Welcome zone">Welcome</button>
+      <button class="nav-link" data-zone="registration" id="nav-registration" aria-label="Go to Registration zone">Register</button>
+      <button class="nav-link" data-zone="timeline" id="nav-timeline" aria-label="Go to Timeline zone">Timeline</button>
+      <button class="nav-link" data-zone="polling" id="nav-polling" aria-label="Go to Polling zone">Polling</button>
+      <button class="nav-link" data-zone="results" id="nav-results" aria-label="Go to Results zone">Results</button>
+      <a href="/text-mode" class="nav-link" id="nav-text-mode" aria-label="Switch to text-only mode">📄 Text Mode</a>
+    </div>
+  </nav>
+
+  <!-- Zone Indicator (right side dots) -->
+  <div class="zone-indicator" id="zone-indicator" role="tablist" aria-label="Election zones">
+    <button class="zone-dot active" data-zone="welcome" data-label="Welcome" role="tab" aria-selected="true" aria-label="Welcome zone" id="dot-welcome"></button>
+    <button class="zone-dot" data-zone="registration" data-label="Register" role="tab" aria-selected="false" aria-label="Registration zone" id="dot-registration"></button>
+    <button class="zone-dot" data-zone="timeline" data-label="Timeline" role="tab" aria-selected="false" aria-label="Timeline zone" id="dot-timeline"></button>
+    <button class="zone-dot" data-zone="polling" data-label="Polling" role="tab" aria-selected="false" aria-label="Polling zone" id="dot-polling"></button>
+    <button class="zone-dot" data-zone="results" data-label="Results" role="tab" aria-selected="false" aria-label="Results zone" id="dot-results"></button>
+  </div>
+
+  <!-- Cyber Grid Background -->
+  <div class="cyber-grid" aria-hidden="true"></div>
+
+  <!-- 3D Canvas -->
+  <div id="canvas-container" aria-hidden="true">
+    <canvas id="three-canvas"></canvas>
+  </div>
+
+  <!-- Hero Overlay -->
+  <div class="hero-overlay" id="hero-overlay">
+    <h1 class="hero-title">ELITE ELECTION</h1>
+    <p class="hero-subtitle">Your immersive guide to the democratic process. Scroll to explore each step of the journey.</p>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
+
+  <!-- Zone Label -->
+  <div class="zone-label" id="zone-label" aria-live="polite">
+    <span class="zone-label-icon" id="zone-label-icon"></span>
+    <span id="zone-label-text"></span>
+  </div>
+
+  <!-- Info Overlay (Left side — zone info card) -->
+  <div class="info-overlay" id="info-overlay" role="complementary" aria-label="Zone information">
+    <div class="info-card">
+      <div class="info-card-icon" id="info-icon" aria-hidden="true"></div>
+      <h2 class="info-card-title" id="info-title"></h2>
+      <p class="info-card-tagline" id="info-tagline"></p>
+      <p class="info-card-desc" id="info-desc"></p>
+      <ul class="info-facts" id="info-facts" aria-label="Key facts"></ul>
+    </div>
+  </div>
+
+  <!-- Chat Toggle -->
+  <button class="chat-toggle" id="chat-toggle" aria-label="Open AI Election Assistant" aria-expanded="false" aria-controls="chat-panel">
+    💬
+  </button>
+
+  <!-- Chat Panel -->
+  <aside class="chat-panel" id="chat-panel" role="dialog" aria-label="AI Election Assistant" aria-hidden="true">
+    <div class="chat-header">
+      <div>
+        <div class="chat-header-title">🤖 Election Guide</div>
+        <div class="chat-header-subtitle">AI-powered • Non-partisan</div>
+      </div>
+      <button class="btn btn-icon btn-ghost" id="chat-close" aria-label="Close assistant" style="color:white;border-color:rgba(255,255,255,0.3);">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
+      <!-- Messages injected by JS -->
+    </div>
+    <div class="quick-questions" id="quick-questions" aria-label="Suggested questions">
+      <!-- Quick question chips injected by JS -->
+    </div>
+    <form class="chat-input-area" id="chat-form" aria-label="Ask a question">
+      <label for="chat-input" class="sr-only">Type your question about elections</label>
+      <input type="text" class="chat-input" id="chat-input" placeholder="Ask about elections…" autocomplete="off" maxlength="500" aria-label="Type your question">
+      <button type="submit" class="chat-send-btn" id="chat-send" aria-label="Send message" disabled>
+        ➤
+      </button>
+    </form>
+  </aside>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Scroll Spacer for GSAP -->
+  <div id="scroll-spacer" aria-hidden="true"></div>
+
+  <!-- Main Content (for skip-nav + text-only fallback) -->
+  <main id="main-content" class="text-content" style="display:none;" role="main">
+    <!-- Populated by JS in text-only mode -->
+  </main>
+
+  <!-- Scripts (CDN for Three.js + GSAP) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="/js/scene/SceneManager.js"></script>
+  <script src="/js/scene/LightingRig.js"></script>
+  <script src="/js/scene/ZoneBuilder.js"></script>
+  <script src="/js/scene/ParticleSystem.js"></script>
+  <script src="/js/scene/PostEffects.js"></script>
+  <script src="/js/scene/ScrollController.js"></script>
+  <script src="/js/scene/Interactions.js"></script>
+  <script src="/js/assistant-ui.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════
+   ELITE ELECTION — Accessibility Styles
+   WCAG AAA: text-only mode, high-contrast, reduced motion
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── High Contrast Mode ── */
+@media (prefers-contrast: high) {
+  :root {
+    --elite-bg: #000000;
+    --elite-text: #FFFFFF;
+    --elite-primary: #FFD700;
+    --elite-primary-light: #FFE44D;
+    --elite-accent: #00FF7F;
+    --elite-glass: rgba(255,255,255,0.1);
+    --elite-glass-border: rgba(255,255,255,0.3);
+    --elite-surface: #1a1a1a;
+  }
+
+  .glass-card, .chat-panel, .info-card {
+    backdrop-filter: none;
+    border-width: 2px;
+  }
+
+  .btn { border: 2px solid currentColor; }
+}
+
+/* ── Forced Colors (Windows High Contrast) ── */
+@media (forced-colors: active) {
+  .btn { border: 2px solid ButtonText; }
+  .glass-card { border: 2px solid Canvas; }
+  .chat-input { border: 2px solid Canvas; }
+  .badge { border: 1px solid Canvas; }
+}
+
+/* ── Text-Only Mode (class applied via JS) ── */
+body.text-only-mode #canvas-container,
+body.text-only-mode .zone-indicator,
+body.text-only-mode #scroll-spacer,
+body.text-only-mode .hero-overlay,
+body.text-only-mode .scroll-progress,
+body.text-only-mode .loading-screen {
+  display: none !important;
+}
+
+body.text-only-mode .text-content {
+  display: block !important;
+  max-width: 800px;
+  margin: 100px auto 40px;
+  padding: 0 var(--space-xl);
+}
+
+body.text-only-mode .text-zone {
+  margin-bottom: var(--space-3xl);
+  padding: var(--space-xl);
+  background: var(--elite-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--elite-glass-border);
+}
+
+body.text-only-mode .text-zone h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-md);
+  color: var(--elite-primary-light);
+}
+
+body.text-only-mode .text-zone p {
+  margin-bottom: var(--space-md);
+  color: var(--elite-text-secondary);
+  line-height: 1.8;
+}
+
+body.text-only-mode .text-zone ul {
+  list-style: disc;
+  padding-left: var(--space-xl);
+}
+
+body.text-only-mode .text-zone li {
+  color: var(--elite-text);
+  padding: var(--space-xs) 0;
+  line-height: 1.7;
+}
+
+/* ── Focus Indicators ── */
+*:focus-visible {
+  outline: 3px solid var(--elite-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Screen Reader Only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Print Styles ── */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  #canvas-container, .chat-panel, .chat-toggle, .nav-bar,
+  .zone-indicator, .loading-screen, .scroll-progress {
+    display: none !important;
+  }
+  .text-content { display: block !important; }
+  .glass-card, .text-zone {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+}

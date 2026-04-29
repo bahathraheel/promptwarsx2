@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ELITE ELECTION Text-Only Mode — Accessible election guide for screen readers and low-bandwidth connections.">
+  <title>ELITE ELECTION — Text-Only Mode</title>
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/accessibility.css">
+</head>
+<body class="text-only-mode">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand">
+      <span class="nav-brand-icon" aria-hidden="true">🗳️</span>
+      <span>ELITE ELECTION</span>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link" aria-label="Switch to 3D mode">🎮 3D Mode</a>
+    </div>
+  </nav>
+
+  <main id="main-content" class="text-content" style="display:block;" role="main">
+    <div style="text-align:center;margin-bottom:var(--space-3xl);">
+      <h1 style="font-size:var(--text-4xl);background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+        ELITE ELECTION
+      </h1>
+      <p style="color:var(--elite-text-secondary);font-size:var(--text-lg);margin-top:var(--space-md);">
+        Your complete accessible guide to the election process
+      </p>
+      <p style="color:var(--elite-text-muted);font-size:var(--text-sm);margin-top:var(--space-sm);">
+        ♿ This page is optimized for screen readers and low-bandwidth connections.
+      </p>
+    </div>
+
+    <div id="text-zones-container">
+      <!-- Zones loaded by JS -->
+      <div class="skeleton" style="height:200px;margin-bottom:var(--space-xl);"></div>
+      <div class="skeleton" style="height:200px;margin-bottom:var(--space-xl);"></div>
+    </div>
+
+    <section class="text-zone" aria-label="Resources and hotlines">
+      <h2>📞 Helpful Resources</h2>
+      <ul>
+        <li><strong>Vote.gov:</strong> <a href="https://vote.gov" target="_blank" rel="noopener">https://vote.gov</a></li>
+        <li><strong>Election Protection Hotline:</strong> 1-866-OUR-VOTE (1-866-687-8683)</li>
+        <li><strong>Disability Rights:</strong> 1-888-225-5322</li>
+        <li><strong>Multilingual Hotline:</strong> 1-888-839-8682</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="/js/text-mode.js"></script>
+</body>
+</html>
