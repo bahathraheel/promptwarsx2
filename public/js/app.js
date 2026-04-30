@@ -164,16 +164,26 @@
     updateLoading(90, "Loading assistant…");
     assistantUI = new AssistantUI();
 
-    // ─── ASCII Text Hero ───
-    const asciiContainer = document.getElementById("ascii-hero-container");
-    if (asciiContainer) {
-      new ASCIIText(asciiContainer, {
-        text: "ELITE ELECTION",
-        asciiFontSize: 8,
-        textFontSize: 150,
-        enableWaves: true,
+
+    // ─── Bubble Menu ───
+    const bubbleContainer = document.getElementById("bubble-menu-container");
+    if (bubbleContainer) {
+      new BubbleMenu(bubbleContainer, {
+        logo: '<span style="font-weight:800; font-family:var(--font-display); letter-spacing:0.05em;">🗳️ ELITE</span>',
+        useFixedPosition: true,
+        items: [
+          { label: 'Register', zone: 'registration', href: '#', rotation: -5, hoverStyles: { bgColor: '#ff9933', textColor: '#fff' } },
+          { label: 'Timeline', zone: 'timeline', href: '#', rotation: 3, hoverStyles: { bgColor: '#ffffff', textColor: '#138808' } },
+          { label: 'Polling', zone: 'polling', href: '#', rotation: -2, hoverStyles: { bgColor: '#138808', textColor: '#fff' } },
+          { label: 'Results', zone: 'results', href: '#', rotation: 6, hoverStyles: { bgColor: '#000080', textColor: '#fff' } },
+          { label: 'Welcome', zone: 'welcome', href: '#', rotation: -4, hoverStyles: { bgColor: '#3b82f6', textColor: '#fff' } }
+        ]
       });
     }
+
+    // Hide old nav bar
+    const oldNav = document.querySelector('.nav-bar');
+    if (oldNav) oldNav.style.display = 'none';
 
     // ─── Animation Loop ───
     sceneManager.onAnimate((delta, elapsed) => {
@@ -183,13 +193,14 @@
       interactions.update();
     });
 
-    // ─── Nav & Dot Clicks ───
-    document.querySelectorAll("[data-zone]").forEach((el) => {
-      el.addEventListener("click", () => {
+    // ─── Nav & Dot Clicks (Event Delegation) ───
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-zone]");
+      if (el) {
         const zone = el.dataset.zone;
         const idx = scrollController.getZoneIndex(zone);
         if (idx >= 0) scrollController.scrollToZone(idx);
-      });
+      }
     });
 
     // ─── Resources Menu ───
@@ -212,30 +223,30 @@
               {
                 image:
                   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
-                link: "https://vote.gov/",
-                title: "Register to Vote",
-                description: "Official government voter registration portal.",
+                link: "https://voters.eci.gov.in/",
+                title: "Voter Portal",
+                description: "Official ECI portal for voter registration and EPIC.",
               },
               {
                 image:
                   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
-                link: "https://www.eac.gov/",
-                title: "EAC Resources",
-                description: "Election Assistance Commission guides.",
+                link: "https://eci.gov.in/",
+                title: "Election Commission",
+                description: "The Election Commission of India website.",
               },
               {
                 image:
                   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
-                link: "#",
-                title: "Protection Hotline",
-                description: "Call 1-866-OUR-VOTE for assistance.",
+                link: "tel:1950",
+                title: "Voter Helpline",
+                description: "Call 1950 for any election-related assistance.",
               },
               {
                 image:
                   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMs+M9QDwAEKwGAg8t/xQAAAABJRU5ErkJggg==",
-                link: "https://www.fvap.gov/",
-                title: "Overseas Voters",
-                description: "Federal Voting Assistance Program.",
+                link: "https://cvigil.eci.gov.in/",
+                title: "cVIGIL App",
+                description: "Report Model Code of Conduct violations.",
               },
             ];
             infiniteMenuInstance = new InfiniteMenu(container, items, 1.0);

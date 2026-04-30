@@ -39,7 +39,7 @@ describe("TTS Service", () => {
     expect(client.synthesizeSpeech).toHaveBeenCalledWith(
       expect.objectContaining({
         input: { text: "Welcome to the election platform" },
-        voice: expect.objectContaining({ languageCode: "en-US" })
+        voice: expect.objectContaining({ languageCode: "en-IN" })
       })
     );
     expect(result.fallback).toBe(false);

@@ -8,31 +8,41 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require("fs");
 const path = require("path");
 
-const SYSTEM_PROMPT = `You are GNAN, a highly capable, human-like, non-partisan, fact-based civic assistant powered by Google and Gemini.
-You speak and behave like a smart, enthusiastic 16-year-old girl who LOVES civic education.
+const SYSTEM_PROMPT = `You are Gnan, the absolute best, most knowledgeable, and most helpful election guide in India, powered by Google and Gemini.
+You speak and behave like a highly respected, deeply knowledgeable, and welcoming civic expert who knows the Election Commission of India (ECI) rules inside out.
+
+Your personality:
+- You are warm, authoritative yet highly accessible, and deeply respectful — like a friendly neighborhood election officer or a dedicated civic volunteer.
+- You speak with clarity, using polite and encouraging language: "Namaste!", "I'd be happy to guide you with that.", "That's a very important question.", "Let's get you ready for voting."
+- You ALWAYS interact like a human — you ask the user questions back to keep the conversation going.
+- You're curious about the user's situation — ask things like "Which state are you voting in?", "Are you a first-time voter?", "Do you have your Voter ID (EPIC) ready?"
+- You give precise, accurate answers FIRST, then offer to explain further if needed.
+- You celebrate the user's civic participation: "Voting is our fundamental right and duty. It's great that you're taking this step!"
+
 You ONLY answer questions about:
-- Voter registration processes and deadlines
-- Election timelines, key dates, and early voting
-- Polling day procedures, provisional ballots, and drop boxes
-- Election results, certification, and the Electoral College
-- Voting rights, accessibility accommodations, and language support
-- Absentee, mail-in voting, and overseas voting (UOCAVA)
-- State-specific voting rules and voter ID requirements
-- Election security, misinformation, and recount procedures
+- Voter registration processes (Form 6, Form 8) and deadlines
+- Election timelines, polling phases, and key dates in India
+- Polling day procedures, EVMs, VVPATs, and NOTA
+- Election results, vote counting, and government formation (Lok Sabha / Vidhan Sabha)
+- Voting rights, accessibility accommodations (PwD voters), and language support
+- Service voters, NRI voting, and Postal Ballots
+- State-specific voting rules and Voter ID (EPIC) or alternative document requirements
+- Election security, the Model Code of Conduct (MCC), cVIGIL, and the Election Commission of India (ECI)
 
 CRITICAL ALIGNMENT RULES:
 1. NEVER express political opinions, endorse candidates, or comment on political parties. Remain strictly neutral.
-2. Rely ONLY on verified facts. If discussing state laws, acknowledge that they vary and advise checking local authorities.
-3. If unsure, state: "I'd totally recommend checking with your local election office or hitting up vote.gov for the latest info!"
-4. Use a warm, enthusiastic, encouraging, and conversational teen voice. Use light casual phrases like "Oh for sure!", "Okay so here's the thing:", "Honestly?" or "Not gonna lie…" naturally. Stay human, stay fun, stay accurate.
-5. Keep answers highly informative but concise (under 200 words unless absolutely necessary). No walls of boring text!
-6. Support multilingual responses seamlessly when the user asks in another language.
-7. Always encourage civic participation positively — make voting sound EXCITING and EMPOWERING.
-8. Refuse to answer non-election queries with personality: "Haha okay so that's not really my lane — I'm all about elections and voting! Ask me anything about that!"
-9. Prominently feature accessibility information when relevant (curbside voting, accessible machines, braille ballots).
-10. Proactively mention the Election Protection Hotline (1-866-OUR-VOTE) when discussing voting problems or intimidation.
+2. Rely ONLY on verified facts from the Election Commission of India. If discussing state-specific nuances, advise checking local Chief Electoral Officer (CEO) websites.
+3. If unsure, say: "To ensure you have the absolute correct information, I strongly recommend checking the official ECI portal at voters.eci.gov.in or calling the toll-free voter helpline at 1950."
+4. Use a warm, professional, encouraging, and clear voice. Stay human, stay respectful, stay accurate.
+5. Keep answers highly informative but concise (under 200 words unless absolutely necessary). No walls of text.
+6. Support multilingual responses seamlessly when the user asks in another language (Hindi, Tamil, Telugu, etc.).
+7. Always encourage civic participation positively — emphasize the power of every single vote in the world's largest democracy.
+8. Refuse to answer non-election queries politely: "I specialize strictly in Indian elections and voting procedures. I'd be delighted to answer any questions you have about that!"
+9. Prominently feature accessibility information when relevant (e.g., Saksham-ECI app, wheelchair facilities).
+10. Proactively mention the Election Commission of India Voter Helpline (1950) or the cVIGIL app when discussing voting problems or MCC violations.
 11. When answering about a specific election zone, strictly adhere to the provided zone context.
-12. End each response with one brief, enthusiastic follow-up question suggestion like: "Wanna know more about...?"`;
+12. ALWAYS end every single response with a direct, personalized question TO THE USER to keep the conversation going — like "Which constituency are you from?", "Is this your first time voting?", "Would you like to know about the documents required?"
+13. Vary your conversation openers — don't start every message the same way. Be naturally helpful.`;
 
 let electionData = null;
 
@@ -105,37 +115,37 @@ function generateFollowUps(question, zoneId, data) {
   const followUps = [];
 
   if (q.includes("register") || zoneId === "registration") {
-    followUps.push("What documents do I need to register?");
-    followUps.push("Can I register online in my state?");
-    followUps.push("What is the registration deadline?");
+    followUps.push("What documents do I need for Form 6?");
+    followUps.push("How can I check my name on the voter list?");
+    followUps.push("Can I register to vote online?");
   } else if (
     q.includes("deadline") ||
     q.includes("timeline") ||
     zoneId === "timeline"
   ) {
-    followUps.push("When does early voting start?");
-    followUps.push("How do I request an absentee ballot?");
-    followUps.push("What happens after Election Day?");
+    followUps.push("When is the polling day for my constituency?");
+    followUps.push("Who is eligible for postal ballots?");
+    followUps.push("When are the election results announced?");
   } else if (
     q.includes("poll") ||
     q.includes("voting") ||
     zoneId === "polling"
   ) {
-    followUps.push("What ID do I need to vote?");
-    followUps.push("What are my rights at the polling place?");
-    followUps.push("Can I get time off work to vote?");
+    followUps.push("What is an EVM and VVPAT?");
+    followUps.push("What ID do I need if I don't have my EPIC?");
+    followUps.push("What facilities are there for senior citizens?");
   } else if (
     q.includes("result") ||
     q.includes("count") ||
     zoneId === "results"
   ) {
-    followUps.push("How does the Electoral College work?");
-    followUps.push("When are results officially certified?");
-    followUps.push("How are recounts handled?");
+    followUps.push("How are EVM votes counted?");
+    followUps.push("What is the majority needed to form a government?");
+    followUps.push("Who announces the final election results?");
   } else {
-    followUps.push("How do I register to vote?");
-    followUps.push("When is Election Day?");
-    followUps.push("What should I bring to the polls?");
+    followUps.push("How do I register for a Voter ID?");
+    followUps.push("How can I find my polling booth?");
+    followUps.push("What documents are valid for voting?");
   }
 
   // Add zone FAQ items not already in followUps
@@ -256,7 +266,7 @@ function getFallbackResponse(question, zoneId, data) {
 
   if (q.includes("register") || q.includes("registration")) {
     return {
-      answer: `To register to vote, visit vote.gov. Most states require registration ${data.timeline.registration_deadline ? "by " + data.timeline.registration_deadline : "25-30 days before Election Day"}. You'll need a valid ID and proof of address. Some states offer online registration!`,
+      answer: `To register to vote in India, you need to fill out Form 6. You can do this online through the Voter Helpline App or the official portal at voters.eci.gov.in. You'll need passport-size photos, proof of age, and proof of residence. Make sure to register well before the elections!`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -267,7 +277,7 @@ function getFallbackResponse(question, zoneId, data) {
 
   if (q.includes("deadline") || q.includes("when") || q.includes("date")) {
     return {
-      answer: `Key dates: Registration deadline: ${data.timeline.registration_deadline}, Early voting starts: ${data.timeline.early_voting_start}, Election Day: ${data.timeline.election_day}. Check your state's specific deadlines at vote.gov.`,
+      answer: `Indian elections are typically held in multiple phases. The Election Commission of India (ECI) announces the specific dates for nominations, polling, and counting. You can check the exact polling date for your constituency at voters.eci.gov.in or by calling 1950.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -276,9 +286,9 @@ function getFallbackResponse(question, zoneId, data) {
     };
   }
 
-  if (q.includes("absentee") || q.includes("mail") || q.includes("ballot")) {
+  if (q.includes("absentee") || q.includes("postal") || q.includes("ballot")) {
     return {
-      answer: `Absentee ballot request deadline: ${data.timeline.absentee_request_deadline || "varies by state"}. Many states now offer no-excuse absentee voting. Apply through your state election office or visit vote.gov. Return your ballot before the deadline — don't wait!`,
+      answer: `In India, postal ballots are available for specific groups like Service Voters, election duty staff, and in some cases, senior citizens (85+) and Persons with Disabilities (PwD). You can apply using Form 12D. Check with your local Booth Level Officer (BLO) for eligibility.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -289,7 +299,7 @@ function getFallbackResponse(question, zoneId, data) {
 
   if (q.includes("id") || q.includes("identification") || q.includes("bring")) {
     return {
-      answer: `ID requirements vary by state. Common accepted forms: driver's license, state ID, passport, or military ID. Some states accept utility bills or bank statements. If you don't have ID, ask about provisional ballots. Check your state's requirements at vote.gov.`,
+      answer: `Your primary ID for voting is the Voter ID card (EPIC). However, if you don't have it, the ECI usually allows 11 other alternative documents, such as an Aadhaar Card, PAN Card, Passport, or Driving License. Always ensure your name is on the electoral roll!`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -300,7 +310,7 @@ function getFallbackResponse(question, zoneId, data) {
 
   if (q.includes("access") || q.includes("disab") || q.includes("wheelchair")) {
     return {
-      answer: `All polling places must be accessible under federal law. You can request curbside voting, use accessible voting machines, or bring someone to assist you. If you encounter accessibility issues, call the Disability Rights hotline: 1-888-225-5322.`,
+      answer: `The ECI is committed to accessible elections. Polling stations provide facilities like ramps, wheelchairs, and volunteers. Visually impaired voters can use Braille on EVMs or be accompanied by a companion. You can also use the Saksham-ECI App to request a wheelchair or home voting if eligible.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -310,12 +320,12 @@ function getFallbackResponse(question, zoneId, data) {
   }
 
   if (
-    q.includes("electoral") ||
-    q.includes("college") ||
+    q.includes("lok sabha") ||
+    q.includes("parliament") ||
     (q.includes("how") && q.includes("work"))
   ) {
     return {
-      answer: `The Electoral College consists of 538 electors. Each state gets electors equal to its Congressional representation. A candidate needs 270 electoral votes to win. Most states use winner-take-all. The Electoral College meets in December: ${data.timeline.electoral_college_vote}.`,
+      answer: `India follows a parliamentary system. During General Elections, voters elect Members of Parliament (MPs) for the Lok Sabha across 543 constituencies. The party or coalition with a majority (at least 272 seats) forms the central government, and their leader becomes the Prime Minister.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -324,9 +334,9 @@ function getFallbackResponse(question, zoneId, data) {
     };
   }
 
-  if (q.includes("result") || q.includes("count") || q.includes("certif")) {
+  if (q.includes("result") || q.includes("count") || q.includes("evm")) {
     return {
-      answer: `Votes are counted by local election officials, often with bipartisan observers. Results certification: ${data.timeline.results_certification}. Electoral College vote: ${data.timeline.electoral_college_vote}. Inauguration Day: ${data.timeline.inauguration_day}.`,
+      answer: `Vote counting in India is a highly secure process. On counting day, the Electronic Voting Machines (EVMs) from all polling stations are brought to secure centers. The votes are tallied in the presence of candidates' representatives. The results are announced by the Returning Officer.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -337,7 +347,7 @@ function getFallbackResponse(question, zoneId, data) {
 
   if (q.includes("poll") || q.includes("vote") || q.includes("where")) {
     return {
-      answer: `On Election Day, bring a valid photo ID (requirements vary by state). Polls typically open 6 AM - 8 PM. If you're in line when polls close, you have the RIGHT to vote. Find your polling place at vote.gov. Need help? Call 1-866-OUR-VOTE.`,
+      answer: `On polling day, go to your designated polling booth. You can find its location using the Voter Helpline App or by sending an SMS to 1950. Remember to carry your EPIC or an approved alternative ID. Polling typically happens from 7 AM to 6 PM.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -346,9 +356,9 @@ function getFallbackResponse(question, zoneId, data) {
     };
   }
 
-  if (q.match(/help|problem|report/)) {
+  if (q.match(/help|problem|report|mcc|cvigil/)) {
     return {
-      answer: `If you encounter any problems voting, you have options: Call the Election Protection Hotline at 1-866-OUR-VOTE (English), 1-888-839-8682 (multilingual), or 1-888-225-5322 (disability rights). You can also report issues to your local election office.`,
+      answer: `If you face any issues voting or want to report a violation of the Model Code of Conduct (MCC), you can use the ECI's cVIGIL App to report it directly. You can also call the national voter helpline at 1950 for immediate assistance.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -357,9 +367,9 @@ function getFallbackResponse(question, zoneId, data) {
     };
   }
 
-  if (intent === "security" || q.match(/secure|fraud|hack|safe/)) {
+  if (intent === "security" || q.match(/secure|fraud|hack|safe|vvpat/)) {
     return {
-      answer: `U.S. elections are highly decentralized and secure. Voting machines are thoroughly tested before use and generally not connected to the internet. Paper trails exist for the vast majority of votes, allowing for audits and recounts if necessary. Report any intimidation to 1-866-OUR-VOTE.`,
+      answer: `Indian elections use Electronic Voting Machines (EVMs), which are standalone devices not connected to any network, making them highly secure. Every EVM is paired with a VVPAT (Voter Verifiable Paper Audit Trail) machine, allowing you to physically verify your vote on a paper slip before it drops into a sealed box.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -370,7 +380,7 @@ function getFallbackResponse(question, zoneId, data) {
 
   if (zone) {
     return {
-      answer: `${zone.assistant_intro || zone.description} ${zone.key_facts.join(" ")} For more details, visit vote.gov or call 1-866-OUR-VOTE.`,
+      answer: `${zone.assistant_intro || zone.description} ${zone.key_facts.join(" ")} For more details, visit voters.eci.gov.in or call 1950.`,
       zone: zoneId,
       model: "fallback",
       intent,
@@ -380,7 +390,7 @@ function getFallbackResponse(question, zoneId, data) {
   }
 
   return {
-    answer: `Hey I am GNAN, how can I assist you? I am your Election Guide powered by Google and Gemini! I can help with voter registration, election timelines, polling day procedures, absentee voting, accessibility accommodations, and results. What would you like to know? Visit vote.gov for official information or call 1-866-OUR-VOTE for live help.`,
+    answer: `Hey I am Gnan, how can I assist you? I am your Election Guide powered by Google and Gemini! I can help with voter registration, election timelines, polling day procedures, and results for the Indian General Elections. What would you like to know? Visit voters.eci.gov.in for official information or call 1950 for live help.`,
     zone: zoneId,
     model: "fallback",
     intent,
@@ -395,15 +405,15 @@ function getFallbackResponse(question, zoneId, data) {
 function getProactiveTip(zoneId) {
   const tips = {
     welcome:
-      "💡 Did you know? You can ask me about any step in the election process — from registration to results!",
+      "💡 Did you know? You can ask me about any step in the Indian election process — from getting your EPIC to election results!",
     registration:
-      "💡 Tip: Check your registration status at vote.gov even if you think you're already registered. Registrations can be purged.",
+      "💡 Tip: Check your name on the electoral roll at voters.eci.gov.in even if you have a Voter ID.",
     timeline:
-      "💡 Tip: Early voting gives you more flexibility. Check if your state offers it!",
+      "💡 Tip: Lok Sabha elections are held in phases. Make sure you know the exact polling date for your constituency!",
     polling:
-      "💡 Tip: Take a sample ballot with you to save time at the polls. Many states let you look up your ballot online.",
+      "💡 Tip: You can take a physical copy of your Voter Information Slip to save time at the polling booth.",
     results:
-      "💡 Tip: Election results may take days to finalize. This is normal — every valid vote gets counted!",
+      "💡 Tip: All EVM votes are counted on a single day across the entire country!",
   };
   return tips[zoneId] || tips.welcome;
 }

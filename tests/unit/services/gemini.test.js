@@ -18,14 +18,14 @@ const { askAssistant, getFallbackResponse, SYSTEM_PROMPT } = require('../../../s
 
 describe('Gemini AI Service', () => {
   test('SYSTEM_PROMPT contains non-partisan directive', () => {
-    expect(SYSTEM_PROMPT).toContain('non-partisan');
+    expect(SYSTEM_PROMPT).toContain('neutral');
     expect(SYSTEM_PROMPT).toContain('NEVER express political opinions');
   });
 
   test('getFallbackResponse returns registration info for registration questions', () => {
     const data = { zones: [], timeline: { registration_deadline: '2026-10-05' }, resources: {} };
     const result = getFallbackResponse('How do I register to vote?', 'registration', data);
-    expect(result.answer).toContain('vote.gov');
+    expect(result.answer).toContain('voters.eci.gov.in');
     expect(result.model).toBe('fallback');
   });
 

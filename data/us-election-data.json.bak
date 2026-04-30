@@ -1,0 +1,133 @@
+{
+  "zones": [
+    {
+      "id": "welcome",
+      "name": "Welcome Hub",
+      "icon": "🏠",
+      "tagline": "Your gateway to understanding democracy",
+      "description": "Start your journey through the election process. Learn what elections are about, why your vote matters, and how the democratic system works.",
+      "assistant_intro": "Welcome! I'm your ELITE Election Guide. I'm here to help you understand every step of the voting process. Ask me anything about elections, registration, or voting!",
+      "faq": [
+        "What elections are coming up?",
+        "Why should I vote?",
+        "How does the electoral process work?",
+        "What types of elections are there?"
+      ],
+      "key_facts": [
+        "The United States holds federal elections every two years.",
+        "Presidential elections occur every four years.",
+        "Midterm elections happen between presidential elections.",
+        "Local elections can happen at any time throughout the year."
+      ]
+    },
+    {
+      "id": "registration",
+      "name": "Voter Registration",
+      "icon": "📝",
+      "tagline": "Make sure your voice counts",
+      "description": "Learn about voter registration requirements, eligibility, and how to register in your state. We'll guide you through every step.",
+      "assistant_intro": "Let's make sure you're registered to vote! Registration is the first and most important step. I can help you understand the requirements for your state.",
+      "faq": [
+        "Am I eligible to vote?",
+        "How do I register to vote?",
+        "What documents do I need?",
+        "Can I register online?",
+        "What is the registration deadline?"
+      ],
+      "key_facts": [
+        "You must be a U.S. citizen to vote in federal elections.",
+        "You must be 18 years old by Election Day.",
+        "Most states require you to register at least 25-30 days before an election.",
+        "Some states offer same-day voter registration.",
+        "You can check your registration status online at vote.gov."
+      ],
+      "rules_by_state": {
+        "California": { "online_registration": true, "same_day": true, "deadline_days_before": 15 },
+        "Texas": { "online_registration": false, "same_day": false, "deadline_days_before": 30 },
+        "New York": { "online_registration": true, "same_day": false, "deadline_days_before": 25 },
+        "Florida": { "online_registration": true, "same_day": false, "deadline_days_before": 29 },
+        "Pennsylvania": { "online_registration": true, "same_day": false, "deadline_days_before": 15 }
+      }
+    },
+    {
+      "id": "timeline",
+      "name": "Election Timeline",
+      "icon": "📅",
+      "tagline": "Key dates you need to know",
+      "description": "Never miss a deadline. From registration cutoffs to early voting windows, this timeline keeps you on track for every important date.",
+      "assistant_intro": "Here are all the key dates for the upcoming election. I can help you set reminders and understand what happens at each stage.",
+      "faq": [
+        "When is the registration deadline?",
+        "When does early voting start?",
+        "Can I vote by mail?",
+        "When is Election Day?",
+        "When are absentee ballot deadlines?"
+      ],
+      "key_facts": [
+        "Early voting dates vary by state.",
+        "Absentee ballot request deadlines differ from registration deadlines.",
+        "Some states allow no-excuse absentee voting.",
+        "Election Day is always the first Tuesday after the first Monday in November."
+      ]
+    },
+    {
+      "id": "polling",
+      "name": "Polling Day",
+      "icon": "🗳️",
+      "tagline": "Your moment to make history",
+      "description": "Everything you need to know about Election Day — from what to bring, to what to expect at the polls, to your rights as a voter.",
+      "assistant_intro": "It's the big day! I'll walk you through exactly what to expect when you arrive at your polling place. No surprises, just confidence.",
+      "faq": [
+        "What do I need to bring to vote?",
+        "Where is my polling place?",
+        "What are polling hours?",
+        "What if there's a long line?",
+        "Can I take time off work to vote?"
+      ],
+      "key_facts": [
+        "Most states require some form of identification to vote.",
+        "Polls are typically open from 6 AM to 8 PM.",
+        "If you're in line when polls close, you have the right to vote.",
+        "Electioneering is prohibited within a certain distance of polling places.",
+        "You can report problems to the Election Protection Hotline: 1-866-OUR-VOTE."
+      ]
+    },
+    {
+      "id": "results",
+      "name": "Results & Beyond",
+      "icon": "📊",
+      "tagline": "After the votes are counted",
+      "description": "Learn how votes are counted, results are certified, and what happens after Election Day. Democracy doesn't end when the polls close.",
+      "assistant_intro": "The polls have closed, but the process continues. Let me explain how votes are counted, certified, and what the transition of power looks like.",
+      "faq": [
+        "How are votes counted?",
+        "When are results official?",
+        "What is the Electoral College?",
+        "How are recounts handled?",
+        "When does the new term begin?"
+      ],
+      "key_facts": [
+        "Official results are certified weeks after Election Day.",
+        "The Electoral College meets in December to formally cast votes.",
+        "Inauguration Day is January 20th.",
+        "Recounts can be triggered automatically or requested by candidates.",
+        "All 50 states must certify their results before the Electoral College meets."
+      ]
+    }
+  ],
+  "timeline": {
+    "registration_deadline": "2026-10-05",
+    "early_voting_start": "2026-10-19",
+    "absentee_request_deadline": "2026-10-27",
+    "election_day": "2026-11-03",
+    "results_certification": "2026-12-08",
+    "electoral_college_vote": "2026-12-14",
+    "inauguration_day": "2027-01-20"
+  },
+  "resources": {
+    "vote_gov": "https://vote.gov",
+    "election_protection": "1-866-OUR-VOTE",
+    "disability_rights": "1-888-225-5322",
+    "multilingual_hotline": "1-888-839-8682"
+  }
+}

@@ -4,20 +4,20 @@
       "id": "welcome",
       "name": "Welcome Hub",
       "icon": "🏠",
-      "tagline": "Your gateway to understanding democracy",
-      "description": "Start your journey through the election process. Learn what elections are about, why your vote matters, and how the democratic system works.",
-      "assistant_intro": "Welcome! I'm your ELITE Election Guide. I'm here to help you understand every step of the voting process. Ask me anything about elections, registration, or voting!",
+      "tagline": "Your gateway to understanding the world's largest democracy",
+      "description": "Start your journey through the Indian election process. Learn what elections are about, why your vote matters, and how the democratic system works in India.",
+      "assistant_intro": "Welcome! I'm your ELITE Election Guide. I'm here to help you understand every step of the voting process in India. Ask me anything about the Lok Sabha, Vidhan Sabha, registration, or voting!",
       "faq": [
         "What elections are coming up?",
         "Why should I vote?",
-        "How does the electoral process work?",
-        "What types of elections are there?"
+        "How does the electoral process work in India?",
+        "What is the difference between Lok Sabha and Rajya Sabha?"
       ],
       "key_facts": [
-        "The United States holds federal elections every two years.",
-        "Presidential elections occur every four years.",
-        "Midterm elections happen between presidential elections.",
-        "Local elections can happen at any time throughout the year."
+        "India is the world's largest democracy with over 960 million eligible voters.",
+        "General Elections (Lok Sabha) are held every five years.",
+        "The Election Commission of India (ECI) is an autonomous constitutional authority responsible for administering election processes in India.",
+        "India uses Electronic Voting Machines (EVMs) along with Voter Verifiable Paper Audit Trail (VVPAT) for elections."
       ]
     },
     {
@@ -25,49 +25,45 @@
       "name": "Voter Registration",
       "icon": "📝",
       "tagline": "Make sure your voice counts",
-      "description": "Learn about voter registration requirements, eligibility, and how to register in your state. We'll guide you through every step.",
-      "assistant_intro": "Let's make sure you're registered to vote! Registration is the first and most important step. I can help you understand the requirements for your state.",
+      "description": "Learn about voter registration requirements, eligibility, and how to register in your constituency. We'll guide you through getting your Voter ID.",
+      "assistant_intro": "Let's make sure you're registered to vote! Getting your Voter ID (EPIC) is the first and most important step. I can help you understand the requirements.",
       "faq": [
-        "Am I eligible to vote?",
+        "Am I eligible to vote in India?",
         "How do I register to vote?",
-        "What documents do I need?",
-        "Can I register online?",
-        "What is the registration deadline?"
+        "What documents do I need for a Voter ID?",
+        "Can I register online via the NVSP portal?",
+        "What is the Form 6 used for?"
       ],
       "key_facts": [
-        "You must be a U.S. citizen to vote in federal elections.",
-        "You must be 18 years old by Election Day.",
-        "Most states require you to register at least 25-30 days before an election.",
-        "Some states offer same-day voter registration.",
-        "You can check your registration status online at vote.gov."
+        "You must be an Indian citizen and 18 years of age on the qualifying date (usually Jan 1, April 1, July 1, or Oct 1 of the year) to vote.",
+        "You must be ordinarily resident in the polling area where you want to be enrolled.",
+        "You can register online through the Voter Helpline App or the ECI's voter portal.",
+        "Form 6 is the application form for new voters.",
+        "You cannot be enrolled in more than one place."
       ],
       "rules_by_state": {
-        "California": { "online_registration": true, "same_day": true, "deadline_days_before": 15 },
-        "Texas": { "online_registration": false, "same_day": false, "deadline_days_before": 30 },
-        "New York": { "online_registration": true, "same_day": false, "deadline_days_before": 25 },
-        "Florida": { "online_registration": true, "same_day": false, "deadline_days_before": 29 },
-        "Pennsylvania": { "online_registration": true, "same_day": false, "deadline_days_before": 15 }
+        "General": { "online_registration": true, "voter_helpline_app": true, "form_required": "Form 6" },
+        "NRI_Voters": { "online_registration": true, "form_required": "Form 6A", "voting_method": "In-person at designated constituency" }
       }
     },
     {
       "id": "timeline",
       "name": "Election Timeline",
       "icon": "📅",
-      "tagline": "Key dates you need to know",
-      "description": "Never miss a deadline. From registration cutoffs to early voting windows, this timeline keeps you on track for every important date.",
-      "assistant_intro": "Here are all the key dates for the upcoming election. I can help you set reminders and understand what happens at each stage.",
+      "tagline": "Key dates for the phases",
+      "description": "Indian elections are massive and often happen in multiple phases. Stay updated on the polling dates for your specific state and constituency.",
+      "assistant_intro": "Indian General Elections happen in phases to ensure security and smooth voting. I can help you find out which phase your constituency falls under.",
       "faq": [
-        "When is the registration deadline?",
-        "When does early voting start?",
-        "Can I vote by mail?",
-        "When is Election Day?",
-        "When are absentee ballot deadlines?"
+        "Why are Indian elections held in phases?",
+        "When is the polling date for my state?",
+        "What is the Model Code of Conduct?",
+        "When is the vote counting day?"
       ],
       "key_facts": [
-        "Early voting dates vary by state.",
-        "Absentee ballot request deadlines differ from registration deadlines.",
-        "Some states allow no-excuse absentee voting.",
-        "Election Day is always the first Tuesday after the first Monday in November."
+        "The 2024 Lok Sabha elections were held in 7 phases from April 19 to June 1.",
+        "The Model Code of Conduct comes into effect as soon as the election dates are announced by the ECI.",
+        "All votes from all phases are counted on a single designated day.",
+        "Campaigning must stop 48 hours before the end of polling in a constituency."
       ]
     },
     {
@@ -75,21 +71,20 @@
       "name": "Polling Day",
       "icon": "🗳️",
       "tagline": "Your moment to make history",
-      "description": "Everything you need to know about Election Day — from what to bring, to what to expect at the polls, to your rights as a voter.",
-      "assistant_intro": "It's the big day! I'll walk you through exactly what to expect when you arrive at your polling place. No surprises, just confidence.",
+      "description": "Everything you need to know about Election Day — from your Voter Slip, to what to expect at the polling booth, to using the EVM.",
+      "assistant_intro": "It's the big day! I'll walk you through exactly what to expect when you arrive at your polling booth. You'll press the button on the EVM and see the VVPAT slip.",
       "faq": [
-        "What do I need to bring to vote?",
-        "Where is my polling place?",
-        "What are polling hours?",
-        "What if there's a long line?",
-        "Can I take time off work to vote?"
+        "Do I need my Voter ID (EPIC) to vote?",
+        "What is an EVM and VVPAT?",
+        "Where is my polling booth?",
+        "What is the NOTA option?",
+        "What do I do if my name is not on the voter list?"
       ],
       "key_facts": [
-        "Most states require some form of identification to vote.",
-        "Polls are typically open from 6 AM to 8 PM.",
-        "If you're in line when polls close, you have the right to vote.",
-        "Electioneering is prohibited within a certain distance of polling places.",
-        "You can report problems to the Election Protection Hotline: 1-866-OUR-VOTE."
+        "You can vote if your name is on the electoral roll, even if you don't have your EPIC, by showing other approved ID proofs like Aadhaar or PAN card.",
+        "EVM stands for Electronic Voting Machine, and VVPAT is the paper slip that verifies your vote.",
+        "NOTA stands for 'None of the Above', allowing you to reject all candidates.",
+        "Polling stations are usually set up so that no voter has to travel more than 2 km to cast their vote."
       ]
     },
     {
@@ -97,37 +92,34 @@
       "name": "Results & Beyond",
       "icon": "📊",
       "tagline": "After the votes are counted",
-      "description": "Learn how votes are counted, results are certified, and what happens after Election Day. Democracy doesn't end when the polls close.",
-      "assistant_intro": "The polls have closed, but the process continues. Let me explain how votes are counted, certified, and what the transition of power looks like.",
+      "description": "Learn how votes are counted by the ECI, results are declared, and how the government is formed in the Lok Sabha.",
+      "assistant_intro": "The polls have closed! Let me explain how the EVMs are secured, how the counting happens on Counting Day, and how a majority is formed.",
       "faq": [
-        "How are votes counted?",
-        "When are results official?",
-        "What is the Electoral College?",
-        "How are recounts handled?",
-        "When does the new term begin?"
+        "How are EVM votes counted?",
+        "When are results declared?",
+        "What is the magic number for a majority in the Lok Sabha?",
+        "How is the Prime Minister chosen?",
+        "What happens if there is a hung parliament?"
       ],
       "key_facts": [
-        "Official results are certified weeks after Election Day.",
-        "The Electoral College meets in December to formally cast votes.",
-        "Inauguration Day is January 20th.",
-        "Recounts can be triggered automatically or requested by candidates.",
-        "All 50 states must certify their results before the Electoral College meets."
+        "All votes from all phases are counted simultaneously across the country on a single day.",
+        "There are 543 elected seats in the Lok Sabha.",
+        "A party or coalition needs 272 seats to form a majority government.",
+        "The President of India invites the leader of the majority party or coalition to form the government as Prime Minister."
       ]
     }
   ],
   "timeline": {
-    "registration_deadline": "2026-10-05",
-    "early_voting_start": "2026-10-19",
-    "absentee_request_deadline": "2026-10-27",
-    "election_day": "2026-11-03",
-    "results_certification": "2026-12-08",
-    "electoral_college_vote": "2026-12-14",
-    "inauguration_day": "2027-01-20"
+    "election_announcement": "2024-03-16",
+    "phase_1_polling": "2024-04-19",
+    "phase_7_polling": "2024-06-01",
+    "counting_day": "2024-06-04",
+    "government_formation": "2024-06-09"
   },
   "resources": {
-    "vote_gov": "https://vote.gov",
-    "election_protection": "1-866-OUR-VOTE",
-    "disability_rights": "1-888-225-5322",
-    "multilingual_hotline": "1-888-839-8682"
+    "voter_portal": "https://voters.eci.gov.in/",
+    "election_commission": "https://eci.gov.in/",
+    "voter_helpline": "1950",
+    "cvigil_app": "https://cvigil.eci.gov.in/"
   }
 }

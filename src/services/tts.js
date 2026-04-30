@@ -5,7 +5,7 @@
 
 async function synthesizeSpeech(
   text,
-  languageCode = "en-US",
+  languageCode = "en-IN",
   voiceName = null,
 ) {
   if (process.env.ENABLE_TTS !== "true") {

@@ -13,6 +13,7 @@ class AssistantUI {
     this.form = document.getElementById("chat-form");
     this.input = document.getElementById("chat-input");
     this.sendBtn = document.getElementById("chat-send");
+    this.micBtn = document.getElementById("chat-mic");
     this.quickQuestions = document.getElementById("quick-questions");
     this.toastContainer = document.getElementById("toast-container");
 
@@ -22,8 +23,12 @@ class AssistantUI {
     this.conversationHistory = [];
     this.messageCount = 0;
     this.hasShownTip = {};
+    this._isTyping = false; // Tracks if currently animating text
+    this._recognition = null;
+    this._isRecording = false;
+    this._initSpeechRecognition();
 
-    // GNAN Voice — youthful 16-year-old girl settings
+    // Gnan Voice — professional and welcoming Indian guide settings
     this.isMuted = false;
     this._selectedVoice = null;
     this._voiceReady = false;
@@ -32,21 +37,23 @@ class AssistantUI {
     this._bindEvents();
   }
 
-  /** Load and cache the best available teen/female voice */
+  /** Load and cache the best available Indian/English voices */
   _loadVoice() {
     const pick = () => {
       const voices = window.speechSynthesis.getVoices();
       if (!voices.length) return;
 
-      // Priority list: young-sounding female voices across browsers
+      // Priority: natural Indian English voices
       const preferred = [
-        "Samantha",           // macOS/iOS – bright, young
-        "Google US English",  // Chrome – clear female
-        "Microsoft Aria Online (Natural) - English (United States)",
-        "Microsoft Zira - English (United States)",
-        "Karen",              // macOS Australian – youthful
-        "Moira",
-        "Tessa",
+        "Google English India",
+        "Microsoft Prabhat Online (Natural) - English (India)",
+        "Microsoft Neerja Online (Natural) - English (India)",
+        "Microsoft Ravi Online (Natural) - English (India)",
+        "Microsoft Heera Online (Natural) - English (India)",
+        "Google UK English Male",
+        "Microsoft Guy Online (Natural) - English (United States)",
+        "Daniel",
+        "Alex",
       ];
 
       for (const name of preferred) {
@@ -54,15 +61,13 @@ class AssistantUI {
         if (v) { this._selectedVoice = v; this._voiceReady = true; return; }
       }
 
-      // Fallback: any en-US female voice
-      const female = voices.find(
-        (v) => v.lang.startsWith("en") && /female|woman|girl/i.test(v.name)
-      );
-      if (female) { this._selectedVoice = female; this._voiceReady = true; return; }
+      // Fallback: any en-IN voice
+      const enIn = voices.find((v) => v.lang.startsWith("en-IN"));
+      if (enIn) { this._selectedVoice = enIn; this._voiceReady = true; return; }
 
-      // Last resort: first en-US voice
-      const enUs = voices.find((v) => v.lang === "en-US");
-      if (enUs) { this._selectedVoice = enUs; this._voiceReady = true; }
+      // Last resort: first en voice
+      const en = voices.find((v) => v.lang.startsWith("en"));
+      if (en) { this._selectedVoice = en; this._voiceReady = true; }
     };
 
     if (window.speechSynthesis.getVoices().length) {
@@ -83,14 +88,18 @@ class AssistantUI {
       this.sendBtn.disabled = !this.input.value.trim();
     });
 
+    if (this.micBtn) {
+      this.micBtn.addEventListener("click", () => this.toggleVoiceInput());
+    }
+
     // Mute toggle button in chat header
     const muteBtn = document.getElementById("chat-mute");
     if (muteBtn) {
       muteBtn.addEventListener("click", () => {
         this.isMuted = !this.isMuted;
         muteBtn.innerHTML = this.isMuted ? "🔇" : "🔊";
-        muteBtn.setAttribute("aria-label", this.isMuted ? "Unmute GNAN" : "Mute GNAN");
-        muteBtn.title = this.isMuted ? "Unmute GNAN" : "Mute GNAN";
+        muteBtn.setAttribute("aria-label", this.isMuted ? "Unmute Gnan" : "Mute Gnan");
+        muteBtn.title = this.isMuted ? "Unmute Gnan" : "Mute Gnan";
         if (this.isMuted) window.speechSynthesis.cancel();
       });
     }
@@ -99,6 +108,64 @@ class AssistantUI {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && this.isOpen) this.closePanel();
     });
+  }
+
+  /** Initialize Speech Recognition API */
+  _initSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      if (this.micBtn) this.micBtn.style.display = "none";
+      return;
+    }
+
+    this._recognition = new SpeechRecognition();
+    this._recognition.continuous = false;
+    this._recognition.interimResults = false;
+    this._recognition.lang = "en-IN";
+
+    this._recognition.onstart = () => {
+      this._isRecording = true;
+      if (this.micBtn) this.micBtn.classList.add("recording");
+      if (this.input) this.input.placeholder = "Listening…";
+    };
+
+    this._recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      if (this.input) {
+        this.input.value = transcript;
+        this.sendBtn.disabled = false;
+        this.sendMessage();
+      }
+    };
+
+    this._recognition.onerror = (event) => {
+      this._stopRecording();
+      if (event.error !== "no-speech") {
+        this.showToast(`Voice error: ${event.error}`, "error");
+      }
+    };
+
+    this._recognition.onend = () => {
+      this._stopRecording();
+    };
+  }
+
+  toggleVoiceInput() {
+    if (this._isRecording) {
+      this._recognition.stop();
+    } else {
+      try {
+        this._recognition.start();
+      } catch (e) {
+        console.error("Speech recognition already started or failed", e);
+      }
+    }
+  }
+
+  _stopRecording() {
+    this._isRecording = false;
+    if (this.micBtn) this.micBtn.classList.remove("recording");
+    if (this.input) this.input.placeholder = "Ask about elections…";
   }
 
   togglePanel() {
@@ -116,18 +183,18 @@ class AssistantUI {
     // Add welcome message if first open
     if (this.messages.children.length === 0) {
       const welcome =
-        "Hey! I'm GNAN 👋 How can I assist you today?\n\n" +
-        "I'm your super-smart Election Guide powered by Google and Gemini — " +
-        "think of me as your go-to bestie for anything civic! I can help with:\n" +
-        "• 📝 Voter registration\n" +
-        "• 📅 Election timelines & deadlines\n" +
-        "• 🗳️ Polling day procedures\n" +
-        "• 📊 Understanding results\n" +
-        "• ♿ Accessibility accommodations\n\n" +
-        "Go ahead — ask me anything! 👇";
-      this.addBotMessage(welcome);
-      // Speak the welcome message automatically
-      setTimeout(() => this._speakText(welcome), 600);
+        "Namaste! I am Gnan, your dedicated election guide for India. 👋\n\n" +
+        "I am here to help you navigate every step of the democratic process with accuracy and ease.\n" +
+        "I can provide official information on:\n" +
+        "• 📝 Voter registration & Form 6\n" +
+        "• 📅 Election phases & timelines\n" +
+        "• 🗳️ Polling day procedures (EVM & VVPAT)\n" +
+        "• 📊 Understanding election results\n" +
+        "• ♿ Accessibility facilities for PwD voters\n\n" +
+        "Are you a first-time voter, or have you participated in our democracy before?";
+      this.addBotMessage(welcome, null, false, true /* humanTyping */);
+      // Speak the welcome message automatically after typing animation
+      setTimeout(() => this._speakText(welcome), 3500);
       this._showDefaultFollowUps();
     }
   }
@@ -167,13 +234,12 @@ class AssistantUI {
   }
 
   _showDefaultFollowUps() {
-    const defaults = [
+    this._renderFollowUpChips([
+      "Am I eligible to vote in India?",
       "How do I register to vote?",
-      "When is Election Day?",
-      "What ID do I need to vote?",
-      "How does absentee voting work?",
-    ];
-    this._renderFollowUpChips(defaults);
+      "What documents do I need for a Voter ID?",
+      "Can I register online via the NVSP portal?",
+    ]);
   }
 
   _updateQuickQuestions(questions) {
@@ -280,7 +346,8 @@ class AssistantUI {
         this.addBotMessage(
           data.data.answer,
           modelTag ? modelTag + confidenceTag : null,
-          true /* autoSpeak — GNAN speaks every reply */,
+          true  /* autoSpeak */,
+          true  /* humanTyping — slow word-by-word like a real dude typing */
         );
 
         // Store bot response in history
@@ -289,24 +356,28 @@ class AssistantUI {
           content: data.data.answer,
         });
 
-        // Show follow-up suggestions
-        if (data.data.followUps && data.data.followUps.length > 0) {
-          this._renderFollowUpChips(data.data.followUps);
-        }
-
-        // Update quick questions from intent
-        if (data.data.followUps) {
-          this._updateQuickQuestions(data.data.followUps);
-        }
+        // Show follow-up suggestions after a delay (wait for typing to finish)
+        const typingDelay = Math.min(data.data.answer.split(' ').length * 55, 4000);
+        setTimeout(() => {
+          if (data.data.followUps && data.data.followUps.length > 0) {
+            this._renderFollowUpChips(data.data.followUps);
+          }
+          // Update quick questions from intent
+          if (data.data.followUps) {
+            this._updateQuickQuestions(data.data.followUps);
+          }
+        }, typingDelay);
       } else {
         this.addBotMessage(
-          "I'm sorry, I couldn't process that. Please try rephrasing your question or call 1-866-OUR-VOTE for live assistance.",
+          "I apologize, but I encountered an error. Please try rephrasing your question or call the ECI Voter Helpline at 1950 for immediate help.",
+          null, false, true
         );
       }
     } catch (error) {
       this.removeTypingIndicator(typingId);
       this.addBotMessage(
-        "I'm currently offline. Here's a tip: visit **vote.gov** for official election information, or call **1-866-OUR-VOTE** for immediate help.",
+        "I'm currently unable to connect to my main knowledge base. 😟 However, you can visit **voters.eci.gov.in** for official information, or call the voter helpline at **1950**.",
+        null, false, true
       );
     }
 
@@ -327,14 +398,13 @@ class AssistantUI {
     this._scrollToBottom();
   }
 
-  addBotMessage(text, meta = null, autoSpeak = false) {
+  addBotMessage(text, meta = null, autoSpeak = false, humanTyping = false) {
     const div = document.createElement("div");
     div.className = "chat-msg chat-msg-bot";
     div.setAttribute("role", "listitem");
 
     const content = document.createElement("div");
     content.className = "msg-content";
-    content.innerHTML = this._renderMarkdown(text);
     div.appendChild(content);
 
     if (meta) {
@@ -347,8 +417,9 @@ class AssistantUI {
     // Action buttons row
     const actions = document.createElement("div");
     actions.className = "msg-actions";
+    actions.style.display = "none"; // hidden until typing done
 
-    // TTS toggle button — shows whether currently speaking
+    // TTS toggle button
     const ttsBtn = document.createElement("button");
     ttsBtn.className = "btn btn-ghost btn-sm tts-btn";
     ttsBtn.innerHTML = "🔊 Listen";
@@ -375,20 +446,97 @@ class AssistantUI {
     copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText(text).then(() => {
         copyBtn.innerHTML = "✅ Copied!";
-        setTimeout(() => {
-          copyBtn.innerHTML = "📋 Copy";
-        }, 2000);
+        setTimeout(() => { copyBtn.innerHTML = "📋 Copy"; }, 2000);
       });
     });
     actions.appendChild(copyBtn);
 
+    // Feedback buttons (👍/👎)
+    const feedback = document.createElement("div");
+    feedback.className = "msg-feedback";
+    feedback.style.display = "flex";
+    feedback.style.gap = "4px";
+    feedback.style.marginLeft = "auto";
+
+    const upBtn = document.createElement("button");
+    upBtn.className = "btn btn-ghost btn-sm feedback-btn";
+    upBtn.innerHTML = "👍";
+    upBtn.title = "Helpful";
+    upBtn.addEventListener("click", () => {
+      this.showToast("Thanks for the feedback!", "success");
+      feedback.innerHTML = "<span style='font-size:0.7rem;opacity:0.7'>Feedback sent!</span>";
+    });
+
+    const downBtn = document.createElement("button");
+    downBtn.className = "btn btn-ghost btn-sm feedback-btn";
+    downBtn.innerHTML = "👎";
+    downBtn.title = "Not helpful";
+    downBtn.addEventListener("click", () => {
+      this.showToast("Feedback received. I'll do better!", "info");
+      feedback.innerHTML = "<span style='font-size:0.7rem;opacity:0.7'>Feedback sent!</span>";
+    });
+
+    feedback.appendChild(upBtn);
+    feedback.appendChild(downBtn);
+    actions.appendChild(feedback);
+
     div.appendChild(actions);
+
     this.messages.appendChild(div);
     this._scrollToBottom();
 
-    // Auto-speak every bot reply (GNAN talks to you!)
-    if (autoSpeak) this._speakText(text);
+    if (humanTyping) {
+      // Slow human-like word-by-word typing
+      this._humanTypeText(content, text, () => {
+        actions.style.display = "";
+        if (autoSpeak) this._speakText(text);
+      });
+    } else {
+      content.innerHTML = this._renderMarkdown(text);
+      actions.style.display = "";
+      if (autoSpeak) this._speakText(text);
+    }
   }
+
+  /**
+   * Simulate human-like slow typing: reveals words one by one
+   * with variable pauses for commas, punctuation, and line breaks.
+   */
+  _humanTypeText(container, text, onDone) {
+    // Split into tokens: words + special breaks
+    const tokens = text.split(/(\s+|\n)/g).filter(Boolean);
+    let idx = 0;
+    let displayed = "";
+
+    const typeNext = () => {
+      if (idx >= tokens.length) {
+        // Finalize with full markdown rendering
+        container.innerHTML = this._renderMarkdown(displayed);
+        this._scrollToBottom();
+        if (onDone) onDone();
+        return;
+      }
+
+      const token = tokens[idx++];
+      displayed += token;
+
+      // Show partial render as plain text while typing
+      container.textContent = displayed;
+      this._scrollToBottom();
+
+      // Variable delay based on token content (human feel)
+      let delay = 38 + Math.random() * 30; // base: ~38-68ms per word
+      if (token === "\n" || token === "\n\n") delay = 280;  // line break pause
+      else if (/[.!?]$/.test(token.trim())) delay = 320;    // sentence end
+      else if (/[,;:]$/.test(token.trim())) delay = 160;    // comma pause
+      else if (/^(•|-)/.test(token.trim())) delay = 120;    // bullet item
+
+      setTimeout(typeNext, delay);
+    };
+
+    typeNext();
+  }
+
 
   addTypingIndicator() {
     const id = "typing-" + Date.now();
@@ -418,7 +566,7 @@ class AssistantUI {
     this.messages.scrollTop = this.messages.scrollHeight;
   }
 
-  /** Text-to-speech: GNAN's youthful 16-year-old voice */
+  /** Text-to-speech: Gnan's energetic 16-year-old male voice */
   _speakText(text) {
     if (this.isMuted) return;
     if (!("speechSynthesis" in window)) return;
@@ -426,7 +574,7 @@ class AssistantUI {
     // Strip markdown symbols so they aren't read aloud
     const cleanText = text
       .replace(/\*\*(.*?)\*\*/g, "$1")
-      .replace(/\*(.*?)\*/g, "$1")
+      .replace(/\*(.*?)\*\*/g, "$1")
       .replace(/[•\-]/g, "")
       .replace(/[\u{1F300}-\u{1FAFF}]/gu, "") // remove emojis
       .trim();
@@ -435,11 +583,11 @@ class AssistantUI {
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
 
-    // 🎤 GNAN voice profile — bright, teenage girl
+    // 🎤 Gnan voice profile — professional and warm Indian guide
     if (this._selectedVoice) utterance.voice = this._selectedVoice;
-    utterance.lang  = "en-US";
-    utterance.rate  = 1.15;  // slightly peppy
-    utterance.pitch = 1.55;  // high — teen girl pitch
+    utterance.lang   = "en-IN";
+    utterance.rate   = 0.95;  // steady, clear pace
+    utterance.pitch  = 1.0;   // natural pitch
     utterance.volume = 1.0;
 
     window.speechSynthesis.speak(utterance);

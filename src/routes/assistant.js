@@ -84,7 +84,7 @@ router.post("/ask", assistantLimiter, askValidation, async (req, res, next) => {
 router.post("/tts", ttsLimiter, ttsValidation, async (req, res, next) => {
   try {
     const { text, languageCode } = req.body;
-    const result = await synthesizeSpeech(text, languageCode || "en-US");
+    const result = await synthesizeSpeech(text, languageCode || "en-IN");
 
     if (result.fallback) {
       return res.json({

@@ -1,120 +1,88 @@
 {
   "checks": [
     {
-      "id": "mok9yo88xnfd7",
-      "timestamp": "2026-04-29T16:34:03.944Z",
+      "id": "molnhvc9uq8ds",
+      "timestamp": "2026-04-30T15:40:40.809Z",
       "status": "ok",
       "service": "health",
-      "responseTime": 1213,
-      "details": {
-        "uptime": 1,
-        "memory": {
-          "heapUsed": "49MB",
-          "heapTotal": "105MB",
-          "rss": "162MB"
-        }
-      },
-      "success": true
-    },
-    {
-      "id": "mok9ynzr5aajm",
-      "timestamp": "2026-04-29T16:34:03.639Z",
-      "status": "ok",
-      "service": "health",
-      "responseTime": 908,
-      "details": {
-        "uptime": 0,
-        "memory": {
-          "heapUsed": "70MB",
-          "heapTotal": "103MB",
-          "rss": "163MB"
-        }
-      },
-      "success": true
-    },
-    {
-      "id": "mok9ykkl91k4m",
-      "timestamp": "2026-04-29T16:33:59.205Z",
-      "status": "ok",
-      "service": "health",
-      "responseTime": 2575,
+      "responseTime": 2307,
       "details": {
         "uptime": 2,
         "memory": {
-          "heapUsed": "54MB",
-          "heapTotal": "71MB",
-          "rss": "126MB"
+          "heapUsed": "201MB",
+          "heapTotal": "312MB",
+          "rss": "461MB"
         }
       },
       "success": true
     },
     {
-      "id": "mok9ykgv7pgjv",
-      "timestamp": "2026-04-29T16:33:59.071Z",
+      "id": "molnhv94mrq8y",
+      "timestamp": "2026-04-30T15:40:40.696Z",
       "status": "ok",
       "service": "health",
-      "responseTime": 2433,
+      "responseTime": 2416,
       "details": {
         "uptime": 2,
         "memory": {
-          "heapUsed": "53MB",
-          "heapTotal": "71MB",
-          "rss": "126MB"
+          "heapUsed": "186MB",
+          "heapTotal": "309MB",
+          "rss": "421MB"
         }
       },
       "success": true
     },
     {
-      "id": "mok9ykf7pa3nx",
-      "timestamp": "2026-04-29T16:33:59.011Z",
+      "id": "molnhv8ly2xxt",
+      "timestamp": "2026-04-30T15:40:40.677Z",
       "status": "ok",
       "service": "health",
-      "responseTime": 691,
-      "details": {
-        "uptime": 0,
-        "memory": {
-          "heapUsed": "89MB",
-          "heapTotal": "131MB",
-          "rss": "194MB"
-        }
-      },
-      "success": true
-    },
-    {
-      "id": "mok9ykdxovwle",
-      "timestamp": "2026-04-29T16:33:58.965Z",
-      "status": "ok",
-      "service": "health",
-      "responseTime": 2775,
+      "responseTime": 2396,
       "details": {
         "uptime": 2,
         "memory": {
-          "heapUsed": "53MB",
-          "heapTotal": "70MB",
-          "rss": "125MB"
+          "heapUsed": "186MB",
+          "heapTotal": "309MB",
+          "rss": "421MB"
         }
       },
       "success": true
     },
     {
-      "id": "mok9yk9xbek9l",
-      "timestamp": "2026-04-29T16:33:58.821Z",
+      "id": "molnhv7kzymt4",
+      "timestamp": "2026-04-30T15:40:40.640Z",
       "status": "ok",
       "service": "health",
-      "responseTime": 2630,
+      "responseTime": 2359,
       "details": {
         "uptime": 2,
         "memory": {
-          "heapUsed": "53MB",
-          "heapTotal": "70MB",
-          "rss": "125MB"
+          "heapUsed": "186MB",
+          "heapTotal": "309MB",
+          "rss": "421MB"
         }
       },
       "success": true
     },
     {
-      "id": "mok9yiwgxf4gx",
-      "timestamp": "2026-04-29T16:33:57.040Z",
+      "id": "molnht1flugdb",
+      "timestamp": "2026-04-30T15:40:37.827Z",
+      "status": "ok",
+      "service": "health",
+      "responseTime": 5903,
+      "details": {
+        "uptime": 5,
+        "memory": {
+          "heapUsed": "138MB",
+          "heapTotal": "264MB",
+          "rss": "366MB"
+        }
+      },
+      "success": true
+    },
+    {
+      "id": "molnhszvvodzf",
+      "timestamp": "2026-04-30T15:40:37.771Z",
       "status": "ok",
       "service": "integration-test",
       "responseTime": null,
@@ -122,33 +90,65 @@
       "success": true
     },
     {
-      "id": "mok2nzamtpmbt",
-      "timestamp": "2026-04-29T13:09:47.758Z",
+      "id": "molnhsz7i3n2i",
+      "timestamp": "2026-04-30T15:40:37.747Z",
       "status": "ok",
       "service": "health",
-      "responseTime": 7460,
+      "responseTime": 5823,
       "details": {
-        "uptime": 7,
+        "uptime": 5,
         "memory": {
-          "heapUsed": "57MB",
-          "heapTotal": "74MB",
-          "rss": "129MB"
+          "heapUsed": "142MB",
+          "heapTotal": "265MB",
+          "rss": "366MB"
         }
       },
       "success": true
     },
     {
-      "id": "mok2nuvqoreq2",
-      "timestamp": "2026-04-29T13:09:42.038Z",
+      "id": "molnhsxxiukft",
+      "timestamp": "2026-04-30T15:40:37.701Z",
       "status": "ok",
       "service": "health",
-      "responseTime": 1227,
+      "responseTime": 5775,
       "details": {
-        "uptime": 1,
+        "uptime": 5,
         "memory": {
-          "heapUsed": "87MB",
-          "heapTotal": "115MB",
-          "rss": "177MB"
+          "heapUsed": "138MB",
+          "heapTotal": "265MB",
+          "rss": "367MB"
+        }
+      },
+      "success": true
+    },
+    {
+      "id": "molnhstc5l605",
+      "timestamp": "2026-04-30T15:40:37.536Z",
+      "status": "ok",
+      "service": "health",
+      "responseTime": 5618,
+      "details": {
+        "uptime": 5,
+        "memory": {
+          "heapUsed": "142MB",
+          "heapTotal": "265MB",
+          "rss": "367MB"
+        }
+      },
+      "success": true
+    },
+    {
+      "id": "molnfmzq9ygyu",
+      "timestamp": "2026-04-30T15:38:56.678Z",
+      "status": "ok",
+      "service": "health",
+      "responseTime": 2611,
+      "details": {
+        "uptime": 2,
+        "memory": {
+          "heapUsed": "201MB",
+          "heapTotal": "311MB",
+          "rss": "457MB"
         }
       },
       "success": true
