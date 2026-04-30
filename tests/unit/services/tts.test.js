@@ -75,4 +75,24 @@ describe("TTS Service", () => {
 
     consoleSpy.mockRestore();
   });
+
+  it("requests Hindi synthesis correctly when specified", async () => {
+    client.synthesizeSpeech.mockResolvedValue([{ audioContent: Buffer.from("data") }]);
+    await synthesizeSpeech("नमस्ते", "hi-IN");
+    expect(client.synthesizeSpeech).toHaveBeenCalledWith(
+      expect.objectContaining({
+        voice: expect.objectContaining({ languageCode: "hi-IN" })
+      })
+    );
+  });
+
+  it("uses MP3 encoding by default", async () => {
+    client.synthesizeSpeech.mockResolvedValue([{ audioContent: Buffer.from("data") }]);
+    await synthesizeSpeech("Encoding test");
+    expect(client.synthesizeSpeech).toHaveBeenCalledWith(
+      expect.objectContaining({
+        audioConfig: expect.objectContaining({ audioEncoding: "MP3" })
+      })
+    );
+  });
 });

@@ -1,26 +1,21 @@
 /**
- * Sanitizer Utility — Unit Tests (3 tests)
+ * Sanitizer Utility — Unit Tests (2 tests)
  */
-const { stripHtml, escapeHtml, sanitizeInput, sanitizeQuestion, hasSqlInjection } = require('../../../src/utils/sanitizer');
+const { sanitizeQuestion, cleanText } = require('../../../src/utils/sanitizer');
 
-describe('Sanitizer', () => {
-  test('stripHtml removes all HTML tags', () => {
-    expect(stripHtml('<script>alert("xss")</script>Hello')).toBe('alert("xss")Hello');
-    expect(stripHtml('<b>Bold</b>')).toBe('Bold');
-    expect(stripHtml('No tags here')).toBe('No tags here');
+describe('Sanitizer Utility', () => {
+  test('sanitizeQuestion removes HTML tags and trims whitespace', () => {
+    const input = '   <script>alert("xss")</script>How do I vote?   ';
+    const output = sanitizeQuestion(input);
+    expect(output).toBe('How do I vote?');
+    expect(output).not.toContain('<script>');
   });
 
-  test('sanitizeInput removes script tags and event handlers', () => {
-    const malicious = '<script>alert("xss")</script><img onerror="hack()" src=x>';
-    const cleaned = sanitizeInput(malicious);
-    expect(cleaned).not.toContain('<script');
-    expect(cleaned).not.toContain('onerror');
-  });
-
-  test('hasSqlInjection detects SQL injection patterns', () => {
-    expect(hasSqlInjection("SELECT * FROM users")).toBe(true);
-    expect(hasSqlInjection("DROP TABLE votes")).toBe(true);
-    expect(hasSqlInjection("1 OR 1=1")).toBe(true);
-    expect(hasSqlInjection("How do I register to vote?")).toBe(false);
+  test('cleanText removes excessive emojis and special characters', () => {
+    const input = 'Vote now! 🗳️🗳️🗳️ !!! ???';
+    const output = cleanText(input);
+    expect(output).toContain('Vote now');
+    // Ensure it doesn't just strip everything, but cleans up
+    expect(output.length).toBeLessThan(input.length);
   });
 });

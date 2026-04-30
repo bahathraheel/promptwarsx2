@@ -35,4 +35,14 @@ describe('Gemini AI Service', () => {
     expect(result.answer).toContain('Election Guide');
     expect(result.model).toBe('fallback');
   });
+
+  test('SYSTEM_PROMPT includes structure and neatness rules', () => {
+    expect(SYSTEM_PROMPT).toContain('NEATNESS & STRUCTURE');
+    expect(SYSTEM_PROMPT).toContain('bullet points');
+  });
+
+  test('SYSTEM_PROMPT specifically mentions Indian languages', () => {
+    expect(SYSTEM_PROMPT).toContain('multilingual responses');
+    expect(SYSTEM_PROMPT).toContain('Hindi, Tamil, Telugu');
+  });
 });

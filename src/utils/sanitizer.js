@@ -94,6 +94,20 @@ function hasSqlInjection(input) {
   return patterns.some((p) => p.test(input));
 }
 
+/**
+ * Clean text by removing excessive symbols and non-alphanumeric noise
+ */
+function cleanText(input) {
+  if (typeof input !== "string") return "";
+  // Remove excessive emojis and repetitive symbols (e.g. !!! -> !)
+  return input
+    .replace(/[\u{1F300}-\u{1FAFF}]/gu, "") // Emojis
+    .replace(/(!{2,})/g, "!")
+    .replace(/(\?{2,})/g, "?")
+    .replace(/(\.{3,})/g, "...")
+    .trim();
+}
+
 module.exports = {
   stripHtml,
   escapeHtml,
@@ -101,4 +115,5 @@ module.exports = {
   sanitizeQuestion,
   sanitizeZoneId,
   hasSqlInjection,
+  cleanText,
 };
