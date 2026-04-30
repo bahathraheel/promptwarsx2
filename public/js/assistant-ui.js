@@ -126,7 +126,10 @@ class AssistantUI {
     this._recognition.onstart = () => {
       this._isRecording = true;
       if (this.micBtn) this.micBtn.classList.add("recording");
-      if (this.input) this.input.placeholder = "Listening…";
+      if (this.input) {
+        this.input.placeholder = "I'm listening…";
+        this.input.value = "";
+      }
     };
 
     this._recognition.onresult = (event) => {
@@ -485,16 +488,16 @@ class AssistantUI {
     this.messages.appendChild(div);
     this._scrollToBottom();
 
+    // Start speaking immediately if autoSpeak is on (more human)
+    if (autoSpeak) this._speakText(text);
+
     if (humanTyping) {
-      // Slow human-like word-by-word typing
       this._humanTypeText(content, text, () => {
         actions.style.display = "";
-        if (autoSpeak) this._speakText(text);
       });
     } else {
       content.innerHTML = this._renderMarkdown(text);
       actions.style.display = "";
-      if (autoSpeak) this._speakText(text);
     }
   }
 
@@ -525,11 +528,11 @@ class AssistantUI {
       this._scrollToBottom();
 
       // Variable delay based on token content (human feel)
-      let delay = 38 + Math.random() * 30; // base: ~38-68ms per word
-      if (token === "\n" || token === "\n\n") delay = 280;  // line break pause
-      else if (/[.!?]$/.test(token.trim())) delay = 320;    // sentence end
-      else if (/[,;:]$/.test(token.trim())) delay = 160;    // comma pause
-      else if (/^(•|-)/.test(token.trim())) delay = 120;    // bullet item
+      let delay = 35 + Math.random() * 25; // base: ~35-60ms per word
+      if (token === "\n" || token === "\n\n") delay = 300;  // thought pause
+      else if (/[.!?]$/.test(token.trim())) delay = 450;    // sentence end
+      else if (/[,;:]$/.test(token.trim())) delay = 200;    // conversational pause
+      else if (/^(•|-)/.test(token.trim())) delay = 150;    // bullet item
 
       setTimeout(typeNext, delay);
     };
@@ -586,7 +589,7 @@ class AssistantUI {
     // 🎤 Gnan voice profile — professional and warm Indian guide
     if (this._selectedVoice) utterance.voice = this._selectedVoice;
     utterance.lang   = "en-IN";
-    utterance.rate   = 0.95;  // steady, clear pace
+    utterance.rate   = 1.05;  // natural, energetic pace
     utterance.pitch  = 1.0;   // natural pitch
     utterance.volume = 1.0;
 
