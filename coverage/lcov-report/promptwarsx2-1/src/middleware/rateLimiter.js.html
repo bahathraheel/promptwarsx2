@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -120,26 +120,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">29x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,10 +135,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,31 +153,46 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * Rate limiting middleware for ELITE ELECTION.
  */
 &nbsp;
-const rateLimit = require('express-rate-limit');
+const rateLimit = <span class="cstat-no" title="statement not covered" >require("express-rate-limit");</span>
 &nbsp;
 /** General API rate limiter */
-const apiLimiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || <span class="branch-1 cbranch-no" title="branch not covered" >15 * 60 * 1000,</span>
-  max: parseInt(process.env.RATE_LIMIT_MAX) || <span class="branch-1 cbranch-no" title="branch not covered" >100,</span>
+const apiLimiter = <span class="cstat-no" title="statement not covered" >rateLimit({</span>
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX) || 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
-      message: 'Too many requests. Please try again later.'
-    }
+      code: "RATE_LIMITED",
+      message: "Too many requests. Please try again later.",
+    },
   },
-  keyGenerator: (req) =&gt; req.ip || <span class="branch-1 cbranch-no" title="branch not covered" >req.headers['x-forwarded-for'] </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >'unknown'</span>
+  keyGenerator: <span class="fstat-no" title="function not covered" >(r</span>eq) =&gt; <span class="cstat-no" title="statement not covered" >req.ip || req.headers["x-forwarded-for"] || "unknown",</span>
 });
 &nbsp;
 /** Stricter limiter for AI assistant */
-const assistantLimiter = rateLimit({
+const assistantLimiter = <span class="cstat-no" title="statement not covered" >rateLimit({</span>
   windowMs: 60 * 1000,
   max: 10,
   standardHeaders: true,
@@ -200,14 +200,14 @@ const assistantLimiter = rateLimit({
   message: {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
-      message: 'AI assistant rate limit reached. Please wait a moment.'
-    }
-  }
+      code: "RATE_LIMITED",
+      message: "AI assistant rate limit reached. Please wait a moment.",
+    },
+  },
 });
 &nbsp;
 /** Strictest limiter for TTS */
-const ttsLimiter = rateLimit({
+const ttsLimiter = <span class="cstat-no" title="statement not covered" >rateLimit({</span>
   windowMs: 60 * 1000,
   max: 5,
   standardHeaders: true,
@@ -215,13 +215,13 @@ const ttsLimiter = rateLimit({
   message: {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
-      message: 'Text-to-speech rate limit reached.'
-    }
-  }
+      code: "RATE_LIMITED",
+      message: "Text-to-speech rate limit reached.",
+    },
+  },
 });
 &nbsp;
-module.exports = { apiLimiter, assistantLimiter, ttsLimiter };
+<span class="cstat-no" title="statement not covered" >module.exports = { apiLimiter, assistantLimiter, ttsLimiter };</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -229,7 +229,7 @@ module.exports = { apiLimiter, assistantLimiter, ttsLimiter };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-29T13:10:04.196Z
+                at 2026-04-30T03:12:42.750Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

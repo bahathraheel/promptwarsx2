@@ -1,31 +1,68 @@
-/**
- * Cloud Logging Service — Unit Tests
- */
+const { writeStructuredLog } = require("../../../src/services/logging");
+const { Logging } = require("@google-cloud/logging");
 
-describe('Cloud Logging Service', () => {
-  let loggingService;
+jest.mock("@google-cloud/logging", () => {
+  const mLog = {
+    entry: jest.fn(),
+    write: jest.fn()
+  };
+  const mLogging = {
+    log: jest.fn(() => mLog)
+  };
+  return { Logging: jest.fn(() => mLogging) };
+});
+
+describe("Logging Service", () => {
+  let log;
 
   beforeEach(() => {
-    jest.resetModules();
-    process.env.ENABLE_CLOUD_LOGGING = 'false';
-    loggingService = require('../../../src/services/logging');
+    process.env.ENABLE_CLOUD_LOGGING = "true";
+    process.env.GOOGLE_CLOUD_PROJECT = "test-project";
+    
+    const { Logging } = require("@google-cloud/logging");
+    const loggingClient = new Logging();
+    log = loggingClient.log();
+    log.entry.mockReset();
+    log.write.mockReset();
   });
 
-  test('exports writeStructuredLog function', () => {
-    expect(typeof loggingService.writeStructuredLog).toBe('function');
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  test('writeStructuredLog falls back to console when disabled', async () => {
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    await loggingService.writeStructuredLog('INFO', 'Test message', { key: 'value' });
-    expect(consoleSpy).toHaveBeenCalledWith('[INFO] Test message', { key: 'value' });
+  it("falls back to console.log if ENABLE_CLOUD_LOGGING is not true", async () => {
+    process.env.ENABLE_CLOUD_LOGGING = "false";
+    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    await writeStructuredLog("INFO", "Test message", { data: 123 });
+    
+    expect(consoleSpy).toHaveBeenCalledWith("[INFO] Test message", { data: 123 });
+    expect(log.write).not.toHaveBeenCalled();
+
     consoleSpy.mockRestore();
   });
 
-  test('writeStructuredLog handles different severity levels', async () => {
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    await loggingService.writeStructuredLog('ERROR', 'Error occurred');
-    expect(consoleSpy).toHaveBeenCalledWith('[ERROR] Error occurred', {});
+  it("writes structured log to Cloud Logging", async () => {
+    log.entry.mockReturnValue("mock-entry");
+    log.write.mockResolvedValue();
+
+    await writeStructuredLog("ERROR", "System failure", { code: 500 });
+    
+    expect(log.entry).toHaveBeenCalledWith(
+      { resource: { type: "cloud_run_revision" }, severity: "ERROR" },
+      expect.objectContaining({ message: "System failure", code: 500, timestamp: expect.any(String) })
+    );
+    expect(log.write).toHaveBeenCalledWith("mock-entry");
+  });
+
+  it("falls back to console.log if Cloud Logging throws an error", async () => {
+    log.write.mockRejectedValue(new Error("API Error"));
+    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    await writeStructuredLog("WARNING", "Slow query", { ms: 5000 });
+    
+    expect(consoleSpy).toHaveBeenCalledWith("[WARNING] Slow query", { ms: 5000 });
+
     consoleSpy.mockRestore();
   });
 });

@@ -28,18 +28,24 @@ class LightingRig {
       registration: 0x44ddaa,
       timeline: 0xffaa44,
       polling: 0xff4488,
-      results: 0xaa44ff
+      results: 0xaa44ff,
     };
 
     const zonePositions = [
-      [0, 6, 0],      // welcome
-      [0, 6, -50],    // registration
-      [0, 6, -100],   // timeline
-      [0, 6, -150],   // polling
-      [0, 6, -200]    // results
+      [0, 6, 0], // welcome
+      [0, 6, -50], // registration
+      [0, 6, -100], // timeline
+      [0, 6, -150], // polling
+      [0, 6, -200], // results
     ];
 
-    const zoneNames = ['welcome', 'registration', 'timeline', 'polling', 'results'];
+    const zoneNames = [
+      "welcome",
+      "registration",
+      "timeline",
+      "polling",
+      "results",
+    ];
 
     zoneNames.forEach((name, i) => {
       const light = new THREE.PointLight(zoneColors[name], 0.6, 40);

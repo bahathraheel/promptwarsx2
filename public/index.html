@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/css/3d-overlay.css">
   <link rel="stylesheet" href="/css/animations.css">
   <link rel="stylesheet" href="/css/accessibility.css">
+  <link rel="stylesheet" href="/css/InfiniteMenu.css">
 </head>
 <body>
   <!-- Skip Navigation -->
@@ -46,6 +47,7 @@
       <button class="nav-link" data-zone="timeline" id="nav-timeline" aria-label="Go to Timeline zone">Timeline</button>
       <button class="nav-link" data-zone="polling" id="nav-polling" aria-label="Go to Polling zone">Polling</button>
       <button class="nav-link" data-zone="results" id="nav-results" aria-label="Go to Results zone">Results</button>
+      <button class="nav-link" id="nav-resources" aria-label="Open Election Resources">Resources</button>
       <a href="/text-mode" class="nav-link" id="nav-text-mode" aria-label="Switch to text-only mode">📄 Text Mode</a>
     </div>
   </nav>
@@ -62,14 +64,24 @@
   <!-- Cyber Grid Background -->
   <div class="cyber-grid" aria-hidden="true"></div>
 
+  <!-- Resources Overlay (InfiniteMenu) -->
+  <div id="resources-overlay" style="display: none; position: fixed; inset: 0; z-index: 500; background: var(--elite-bg); flex-direction: column;">
+    <div style="padding: 1rem; display: flex; justify-content: space-between; background: var(--elite-surface); border-bottom: 1px solid var(--elite-glass-border);">
+      <h2 style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; margin: 0; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Election Resources</h2>
+      <button id="close-resources-btn" class="btn btn-ghost btn-sm" style="font-size: 1.5rem; width: 40px; height: 40px; padding: 0;">&times;</button>
+    </div>
+    <div id="infinite-menu-container" style="flex: 1; min-height: 500px; width: 100%; height: 100%; position: relative;"></div>
+  </div>
+
   <!-- 3D Canvas -->
   <div id="canvas-container" aria-hidden="true">
     <canvas id="three-canvas"></canvas>
   </div>
 
   <!-- Hero Overlay -->
-  <div class="hero-overlay" id="hero-overlay">
-    <h1 class="hero-title">ELITE ELECTION</h1>
+  <div class="hero-overlay" id="hero-overlay" style="position: relative;">
+    <div id="ascii-hero-container" style="position: absolute; inset: 0; z-index: -1;"></div>
+    <h1 class="hero-title sr-only">ELITE ELECTION</h1>
     <p class="hero-subtitle">Your immersive guide to the democratic process. Scroll to explore each step of the journey.</p>
     <div class="hero-scroll-hint" aria-hidden="true">
       <span>Scroll to explore</span>
@@ -134,10 +146,11 @@
     <!-- Populated by JS in text-only mode -->
   </main>
 
-  <!-- Scripts (CDN for Three.js + GSAP) -->
+  <!-- Scripts (CDN for Three.js + GSAP + GL-Matrix) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/3.4.3/gl-matrix-min.js"></script>
 
   <script src="/js/scene/SceneManager.js"></script>
   <script src="/js/scene/LightingRig.js"></script>
@@ -146,6 +159,8 @@
   <script src="/js/scene/PostEffects.js"></script>
   <script src="/js/scene/ScrollController.js"></script>
   <script src="/js/scene/Interactions.js"></script>
+  <script src="/js/scene/InfiniteMenu.js"></script>
+  <script src="/js/scene/ASCIIText.js"></script>
   <script src="/js/assistant-ui.js"></script>
   <script src="/js/app.js"></script>
 </body>

@@ -6,13 +6,18 @@
 /* global THREE */
 
 class SceneManager {
-  constructor(canvasId = 'three-canvas') {
+  constructor(canvasId = "three-canvas") {
     this.canvas = document.getElementById(canvasId);
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(0x0a0a1a, 0.008);
 
     // Camera
-    this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
     this.camera.position.set(0, 5, 30);
     this.camera.lookAt(0, 0, 0);
 
@@ -21,7 +26,7 @@ class SceneManager {
       canvas: this.canvas,
       antialias: true,
       alpha: true,
-      powerPreference: 'high-performance'
+      powerPreference: "high-performance",
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -39,7 +44,7 @@ class SceneManager {
 
     // Resize handler
     this._onResize = this._onResize.bind(this);
-    window.addEventListener('resize', this._onResize);
+    window.addEventListener("resize", this._onResize);
   }
 
   _onResize() {
@@ -84,7 +89,7 @@ class SceneManager {
 
   dispose() {
     this.stop();
-    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener("resize", this._onResize);
     this.renderer.dispose();
   }
 }

@@ -6,15 +6,15 @@
 let db = null;
 
 function getFirestore() {
-  if (process.env.ENABLE_FIRESTORE !== 'true') return null;
+  if (process.env.ENABLE_FIRESTORE !== "true") return null;
   if (db) return db;
 
   try {
-    const { Firestore } = require('@google-cloud/firestore');
+    const { Firestore } = require("@google-cloud/firestore");
     db = new Firestore({ projectId: process.env.GOOGLE_CLOUD_PROJECT });
     return db;
   } catch (error) {
-    console.warn('[Firestore] Service unavailable:', error.message);
+    console.warn("[Firestore] Service unavailable:", error.message);
     return null;
   }
 }
@@ -27,7 +27,7 @@ async function getDocument(collection, docId) {
     const doc = await firestore.collection(collection).doc(docId).get();
     return doc.exists ? { id: doc.id, ...doc.data() } : null;
   } catch (error) {
-    console.warn('[Firestore] Read error:', error.message);
+    console.warn("[Firestore] Read error:", error.message);
     return null;
   }
 }
@@ -37,10 +37,13 @@ async function setDocument(collection, docId, data) {
   if (!firestore) return false;
 
   try {
-    await firestore.collection(collection).doc(docId).set(data, { merge: true });
+    await firestore
+      .collection(collection)
+      .doc(docId)
+      .set(data, { merge: true });
     return true;
   } catch (error) {
-    console.warn('[Firestore] Write error:', error.message);
+    console.warn("[Firestore] Write error:", error.message);
     return false;
   }
 }
@@ -50,21 +53,29 @@ async function queryCollection(collection, field, operator, value) {
   if (!firestore) return [];
 
   try {
-    const snapshot = await firestore.collection(collection)
-      .where(field, operator, value).get();
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const snapshot = await firestore
+      .collection(collection)
+      .where(field, operator, value)
+      .get();
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
-    console.warn('[Firestore] Query error:', error.message);
+    console.warn("[Firestore] Query error:", error.message);
     return [];
   }
 }
 
 async function logAnalytics(event, data) {
-  return setDocument('analytics', `${event}_${Date.now()}`, {
+  return setDocument("analytics", `${event}_${Date.now()}`, {
     event,
     ...data,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
 
-module.exports = { getFirestore, getDocument, setDocument, queryCollection, logAnalytics };
+module.exports = {
+  getFirestore,
+  getDocument,
+  setDocument,
+  queryCollection,
+  logAnalytics,
+};

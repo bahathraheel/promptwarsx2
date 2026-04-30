@@ -10,14 +10,14 @@ class ScrollController {
     this.camera = camera;
     this.onZoneChange = onZoneChange;
     this.currentZone = 0;
-    this.zones = ['welcome', 'registration', 'timeline', 'polling', 'results'];
+    this.zones = ["welcome", "registration", "timeline", "polling", "results"];
 
     this.cameraPositions = [
       { x: 0, y: 5, z: 30, lookY: 0, lookZ: 0 },
       { x: 5, y: 5, z: -20, lookY: 0, lookZ: -50 },
       { x: -5, y: 6, z: -70, lookY: 0, lookZ: -100 },
       { x: 4, y: 4, z: -120, lookY: 0, lookZ: -150 },
-      { x: 0, y: 8, z: -170, lookY: 0, lookZ: -200 }
+      { x: 0, y: 8, z: -170, lookY: 0, lookZ: -200 },
     ];
 
     gsap.registerPlugin(ScrollTrigger);
@@ -33,12 +33,12 @@ class ScrollController {
       const camPos = this.cameraPositions[index];
 
       ScrollTrigger.create({
-        trigger: '#scroll-spacer',
+        trigger: "#scroll-spacer",
         start: `${start}% top`,
         end: `${end}% top`,
         onEnter: () => this._onEnterZone(index),
         onEnterBack: () => this._onEnterZone(index),
-        onUpdate: (self) => this._onUpdateProgress(index, self.progress)
+        onUpdate: (self) => this._onUpdateProgress(index, self.progress),
       });
 
       // Animate camera position
@@ -46,13 +46,13 @@ class ScrollController {
         x: camPos.x,
         y: camPos.y,
         z: camPos.z,
-        ease: 'power2.inOut',
+        ease: "power2.inOut",
         scrollTrigger: {
-          trigger: '#scroll-spacer',
+          trigger: "#scroll-spacer",
           start: `${start}% top`,
           end: `${end}% top`,
-          scrub: 1
-        }
+          scrub: 1,
+        },
       });
     });
   }
@@ -74,7 +74,8 @@ class ScrollController {
     if (index < this.cameraPositions.length - 1) {
       const currLook = this.cameraPositions[index];
       const nextLook = this.cameraPositions[index + 1];
-      const lookZ = currLook.lookZ + (nextLook.lookZ - currLook.lookZ) * progress;
+      const lookZ =
+        currLook.lookZ + (nextLook.lookZ - currLook.lookZ) * progress;
       this.camera.lookAt(new THREE.Vector3(0, currLook.lookY, lookZ));
     }
   }
@@ -82,8 +83,10 @@ class ScrollController {
   /** Programmatically scroll to a zone */
   scrollToZone(zoneIndex) {
     const totalSections = this.zones.length;
-    const targetScroll = (zoneIndex / totalSections) * document.getElementById('scroll-spacer').offsetHeight;
-    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    const targetScroll =
+      (zoneIndex / totalSections) *
+      document.getElementById("scroll-spacer").offsetHeight;
+    window.scrollTo({ top: targetScroll, behavior: "smooth" });
   }
 
   /** Get zone index by name */

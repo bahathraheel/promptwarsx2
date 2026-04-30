@@ -15,7 +15,7 @@ class ParticleSystem {
     for (let i = 0; i < count; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 80;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
-      positions[i * 3 + 2] = (Math.random()) * -250;
+      positions[i * 3 + 2] = Math.random() * -250;
 
       const hue = Math.random() * 0.2 + 0.55; // blue-ish
       const color = new THREE.Color().setHSL(hue, 0.7, 0.6);
@@ -27,9 +27,9 @@ class ParticleSystem {
     }
 
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    geo.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
     const mat = new THREE.PointsMaterial({
       size: 0.3,
@@ -38,7 +38,7 @@ class ParticleSystem {
       opacity: 0.6,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      sizeAttenuation: true
+      sizeAttenuation: true,
     });
 
     this.points = new THREE.Points(geo, mat);

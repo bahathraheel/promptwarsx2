@@ -2,7 +2,7 @@
  * Rate limiting middleware for ELITE ELECTION.
  */
 
-const rateLimit = require('express-rate-limit');
+const rateLimit = require("express-rate-limit");
 
 /** General API rate limiter */
 const apiLimiter = rateLimit({
@@ -13,11 +13,11 @@ const apiLimiter = rateLimit({
   message: {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
-      message: 'Too many requests. Please try again later.'
-    }
+      code: "RATE_LIMITED",
+      message: "Too many requests. Please try again later.",
+    },
   },
-  keyGenerator: (req) => req.ip || req.headers['x-forwarded-for'] || 'unknown'
+  keyGenerator: (req) => req.ip || req.headers["x-forwarded-for"] || "unknown",
 });
 
 /** Stricter limiter for AI assistant */
@@ -29,10 +29,10 @@ const assistantLimiter = rateLimit({
   message: {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
-      message: 'AI assistant rate limit reached. Please wait a moment.'
-    }
-  }
+      code: "RATE_LIMITED",
+      message: "AI assistant rate limit reached. Please wait a moment.",
+    },
+  },
 });
 
 /** Strictest limiter for TTS */
@@ -44,10 +44,10 @@ const ttsLimiter = rateLimit({
   message: {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
-      message: 'Text-to-speech rate limit reached.'
-    }
-  }
+      code: "RATE_LIMITED",
+      message: "Text-to-speech rate limit reached.",
+    },
+  },
 });
 
 module.exports = { apiLimiter, assistantLimiter, ttsLimiter };

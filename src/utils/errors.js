@@ -4,7 +4,7 @@
  */
 
 class AppError extends Error {
-  constructor(message, statusCode = 500, code = 'INTERNAL_ERROR') {
+  constructor(message, statusCode = 500, code = "INTERNAL_ERROR") {
     super(message);
     this.name = this.constructor.name;
     this.statusCode = statusCode;
@@ -15,39 +15,39 @@ class AppError extends Error {
 }
 
 class ValidationError extends AppError {
-  constructor(message = 'Validation failed', details = []) {
-    super(message, 400, 'VALIDATION_ERROR');
+  constructor(message = "Validation failed", details = []) {
+    super(message, 400, "VALIDATION_ERROR");
     this.details = details;
   }
 }
 
 class NotFoundError extends AppError {
-  constructor(resource = 'Resource') {
-    super(`${resource} not found`, 404, 'NOT_FOUND');
+  constructor(resource = "Resource") {
+    super(`${resource} not found`, 404, "NOT_FOUND");
   }
 }
 
 class RateLimitError extends AppError {
   constructor() {
-    super('Too many requests. Please try again later.', 429, 'RATE_LIMITED');
+    super("Too many requests. Please try again later.", 429, "RATE_LIMITED");
   }
 }
 
 class ServiceUnavailableError extends AppError {
-  constructor(service = 'Service') {
-    super(`${service} is temporarily unavailable`, 503, 'SERVICE_UNAVAILABLE');
+  constructor(service = "Service") {
+    super(`${service} is temporarily unavailable`, 503, "SERVICE_UNAVAILABLE");
   }
 }
 
 class UnauthorizedError extends AppError {
-  constructor(message = 'Authentication required') {
-    super(message, 401, 'UNAUTHORIZED');
+  constructor(message = "Authentication required") {
+    super(message, 401, "UNAUTHORIZED");
   }
 }
 
 class ForbiddenError extends AppError {
-  constructor(message = 'Access denied') {
-    super(message, 403, 'FORBIDDEN');
+  constructor(message = "Access denied") {
+    super(message, 403, "FORBIDDEN");
   }
 }
 
@@ -56,16 +56,17 @@ class ForbiddenError extends AppError {
  */
 function errorHandler(err, req, res, _next) {
   const statusCode = err.statusCode || 500;
-  const isProduction = process.env.NODE_ENV === 'production';
+  const isProduction = process.env.NODE_ENV === "production";
 
   const response = {
     success: false,
     error: {
-      code: err.code || 'INTERNAL_ERROR',
-      message: isProduction && statusCode === 500
-        ? 'An unexpected error occurred'
-        : err.message
-    }
+      code: err.code || "INTERNAL_ERROR",
+      message:
+        isProduction && statusCode === 500
+          ? "An unexpected error occurred"
+          : err.message,
+    },
   };
 
   if (err.details) {
@@ -91,5 +92,5 @@ module.exports = {
   ServiceUnavailableError,
   UnauthorizedError,
   ForbiddenError,
-  errorHandler
+  errorHandler,
 };

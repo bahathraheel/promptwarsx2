@@ -24,10 +24,10 @@ class PostEffects {
       { z: -50, color: 0x44ddaa },
       { z: -100, color: 0xffaa44 },
       { z: -150, color: 0xff4488 },
-      { z: -200, color: 0xaa44ff }
+      { z: -200, color: 0xaa44ff },
     ];
 
-    zonePositions.forEach(zone => {
+    zonePositions.forEach((zone) => {
       // Outer glow ring
       const ringGeo = new THREE.RingGeometry(8, 15, 32);
       const ringMat = new THREE.MeshBasicMaterial({
@@ -35,7 +35,7 @@ class PostEffects {
         transparent: true,
         opacity: 0.04,
         side: THREE.DoubleSide,
-        blending: THREE.AdditiveBlending
+        blending: THREE.AdditiveBlending,
       });
       const ring = new THREE.Mesh(ringGeo, ringMat);
       ring.rotation.x = -Math.PI / 2;
@@ -49,7 +49,7 @@ class PostEffects {
         color: zone.color,
         transparent: true,
         opacity: 0.3,
-        blending: THREE.AdditiveBlending
+        blending: THREE.AdditiveBlending,
       });
       const sphere = new THREE.Mesh(sphereGeo, sphereMat);
       sphere.position.set(0, 8, zone.z);
@@ -68,7 +68,7 @@ class PostEffects {
     for (let i = 0; i < starCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 150;
       positions[i * 3 + 1] = Math.random() * 50 + 10;
-      positions[i * 3 + 2] = (Math.random()) * -250;
+      positions[i * 3 + 2] = Math.random() * -250;
 
       const brightness = Math.random() * 0.5 + 0.5;
       colors[i * 3] = brightness;
@@ -77,8 +77,8 @@ class PostEffects {
     }
 
     const starGeo = new THREE.BufferGeometry();
-    starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    starGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    starGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    starGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
     const starMat = new THREE.PointsMaterial({
       size: 0.15,
@@ -86,7 +86,7 @@ class PostEffects {
       transparent: true,
       opacity: 0.8,
       blending: THREE.AdditiveBlending,
-      depthWrite: false
+      depthWrite: false,
     });
 
     this.stars = new THREE.Points(starGeo, starMat);
@@ -96,9 +96,10 @@ class PostEffects {
   /** Animate post effects (called per frame) */
   animate(elapsed) {
     // Pulse glow spheres
-    this.glowMeshes.forEach(mesh => {
+    this.glowMeshes.forEach((mesh) => {
       if (mesh.userData && mesh.userData.pulses) {
-        mesh.material.opacity = mesh.userData.baseOpacity + Math.sin(elapsed * 2) * 0.15;
+        mesh.material.opacity =
+          mesh.userData.baseOpacity + Math.sin(elapsed * 2) * 0.15;
         mesh.scale.setScalar(1 + Math.sin(elapsed * 1.5) * 0.2);
       }
     });

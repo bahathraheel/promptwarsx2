@@ -42,6 +42,7 @@ app.use('/api/timeline', require('./src/routes/timeline'));
 app.use('/api/checks', require('./src/routes/checks'));
 app.use('/api/translate', require('./src/routes/translate'));
 app.use('/api/accessibility', require('./src/routes/accessibility'));
+app.use('/api/civic', require('./src/routes/civic'));
 
 // ─── SPA Fallback ───
 app.get('/', (req, res) => {
