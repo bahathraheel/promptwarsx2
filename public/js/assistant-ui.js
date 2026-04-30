@@ -310,30 +310,40 @@ class AssistantUI {
       });
       container.appendChild(chip);
     });
-
-    this.messages.appendChild(container);
+this.messages.appendChild(container);
     this._scrollToBottom();
   }
 
-  /** Simple markdown-to-HTML converter for bot messages */
+  /**
+   * Render markdown-like syntax into safe HTML.
+   * Implements strict XSS filtering.
+   * @param {string} text - Raw markdown text
+   * @returns {string} - Safe HTML string
+   */
   _renderMarkdown(text) {
-    let html = text
+    if (!text) return "";
+    
+    // 1. Basic Sanitization (Escape potential HTML injections)
+    let safe = text
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
 
-    // Bold
-    html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    // Italic
-    html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
-    // Bullet points
-    html = html.replace(/^[•\-]\s(.+)$/gm, "<li>$1</li>");
-    html = html.replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>");
-    // Line breaks
-    html = html.replace(/\n\n/g, "<br><br>");
-    html = html.replace(/\n/g, "<br>");
-
-    return html;
+    // 2. Controlled Re-injection of safe formatting tags
+    return safe
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Bold
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")           // Italic
+      .replace(/\n\n/g, "<br><br>")                    // Paragraphs
+      .replace(/\n/g, "<br>")                          // Line breaks
+      .replace(/\[(.*?)\]\((.*?)\)/g, (match, label, url) => {
+        // Only allow self-domain or trusted election domains
+        const isTrusted = url.startsWith("/") || url.includes("eci.gov.in") || url.includes("voters.eci.gov.in");
+        return `<a href="${isTrusted ? url : '#'}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+      })
+      .replace(/^[-•] (.*)/gm, "<li>$1</li>")          // Bullet items
+      .replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>");      // Wrap bullets
   }
 
   async sendMessage() {

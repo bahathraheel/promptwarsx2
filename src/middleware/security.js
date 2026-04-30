@@ -45,6 +45,7 @@ function createHelmetMiddleware() {
     hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
     noSniff: true,
     xssFilter: true,
+    hidePoweredBy: true,
   });
 }
 

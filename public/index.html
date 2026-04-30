@@ -2,11 +2,10 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ELITE ELECTION — An immersive 3D AI-powered election assistant. Understand voter registration, timelines, polling day, and results with interactive guidance.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#1a1a2e">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+  <meta name="description" content="ELITE ELECTION — Your immersive, AI-powered guide to India's democratic process. Meet Gnan, the multilingual election assistant.">
+  <meta name="keywords" content="Indian Election, Voting Guide, AI Assistant, ECI, Gnan, Democracy">
+  <meta name="theme-color" content="#0a0a1e">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="ELITE ELECTION — Your Interactive Election Guide">
   <meta property="og:description" content="Navigate the election process in an immersive 3D experience with AI-powered assistance.">
@@ -22,7 +21,9 @@
   <link rel="stylesheet" href="/css/BubbleMenu.css">
   <link rel="stylesheet" href="/css/InfiniteMenu.css">
 </head>
-<body>
+<body id="main-content">
+  <!-- Accessibility Skip Link -->
+  <a href="#chat-toggle" class="skip-link">Skip to Assistant</a>
   <!-- Skip Navigation -->
   <a href="#main-content" class="skip-link" id="skip-nav">Skip to main content</a>
 
@@ -99,14 +100,12 @@
       margin-bottom: 1rem;
       letter-spacing: -0.02em;
     ">ELITE ELECTION</h1>
-    <p class="hero-subtitle" style="
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      text-align: center;
-      color: rgba(200,210,240,0.85);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      line-height: 1.7;
-    ">Your immersive AI-powered guide to the democratic process.<br>Meet <strong style="color:#a78bfa">Gnan</strong> — powered by Google &amp; Gemini.</p>
+    <p style="
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        max-width: 600px; margin: 0 auto 2.5rem auto;
+        opacity: 0.9; font-weight: 400;
+        line-height: 1.7;
+      ">Your immersive AI-powered guide to the democratic process.<br>Meet <strong style="color:#a78bfa" aria-label="Gnan">Gnan</strong> — powered by Google &amp; Gemini.</p>
     <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:2rem;">
       <button id="hero-chat-btn" style="
         background: linear-gradient(135deg,#a78bfa,#38bdf8);
@@ -185,8 +184,13 @@
         <button class="btn btn-icon btn-ghost" id="chat-close" aria-label="Close assistant" style="color:white;border-color:rgba(255,255,255,0.3);">&#x2715;</button>
       </div>
     </div>
-    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
-      <!-- Messages injected by JS -->
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions">
+      <div class="chat-msg chat-msg-bot">
+        <div class="msg-content">
+          Namaste! I'm <strong>Gnan</strong>, your guide to India's elections. How can I help you today?
+        </div>
+        <div class="msg-meta">Now &bull; Gnan Assistant</div>
+      </div>
     </div>
     <div class="quick-questions" id="quick-questions" aria-label="Suggested questions">
       <!-- Quick question chips injected by JS -->
