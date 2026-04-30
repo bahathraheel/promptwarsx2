@@ -211,6 +211,21 @@
 .chat-send-btn:hover { box-shadow: var(--shadow-glow); transform: scale(1.05); }
 .chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+.chat-lang-select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  transition: all var(--transition-fast);
+}
+.chat-lang-select:hover { background: rgba(255, 255, 255, 0.2); border-color: var(--elite-primary); }
+.chat-lang-select option { background: #1a1a2e; color: white; }
+
 .chat-mic-btn {
   width: 40px; height: 40px; border-radius: var(--radius-full);
   background: var(--elite-glass); border: 1px solid var(--elite-glass-border);

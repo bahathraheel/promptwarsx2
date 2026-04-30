@@ -108,7 +108,7 @@
       line-height: 1.7;
     ">Your immersive AI-powered guide to the democratic process.<br>Meet <strong style="color:#a78bfa">Gnan</strong> — powered by Google &amp; Gemini.</p>
     <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:2rem;">
-      <button id="hero-chat-btn" onclick="document.getElementById('chat-toggle').click()" style="
+      <button id="hero-chat-btn" style="
         background: linear-gradient(135deg,#a78bfa,#38bdf8);
         color: #0a0a1a; font-weight: 800; border: none;
         padding: 0.85rem 2rem; border-radius: 999px; font-size: 1rem;
@@ -167,7 +167,20 @@
           <div class="chat-header-subtitle">Powered by Google &amp; Gemini &bull; Non-partisan</div>
         </div>
       </div>
-      <div style="display:flex;gap:6px;">
+      <div style="display:flex;gap:6px;align-items:center;">
+        <select id="chat-lang" class="chat-lang-select" aria-label="Select Language">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+          <option value="te">తెలుగు (Telugu)</option>
+          <option value="kn">ಕನ್ನಡ (Kannada)</option>
+          <option value="ml">മലയാളം (Malayalam)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+          <option value="mr">मराठी (Marathi)</option>
+          <option value="gu">ગુજરાતી (Gujarati)</option>
+          <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+          <option value="ur">اردو (Urdu)</option>
+        </select>
         <button class="btn btn-icon btn-ghost" id="chat-mute" aria-label="Mute Gnan" title="Mute Gnan" style="color:white;border-color:rgba(255,255,255,0.3);font-size:1rem;">🔊</button>
         <button class="btn btn-icon btn-ghost" id="chat-close" aria-label="Close assistant" style="color:white;border-color:rgba(255,255,255,0.3);">&#x2715;</button>
       </div>

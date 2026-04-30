@@ -164,6 +164,15 @@
     updateLoading(90, "Loading assistant…");
     assistantUI = new AssistantUI();
 
+    // Fix: Connect Hero Chat Button to AssistantUI
+    const heroChatBtn = document.getElementById("hero-chat-btn");
+    if (heroChatBtn) {
+      heroChatBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (assistantUI) assistantUI.openPanel();
+      });
+    }
+
 
     // ─── Bubble Menu ───
     const bubbleContainer = document.getElementById("bubble-menu-container");

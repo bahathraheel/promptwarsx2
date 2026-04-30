@@ -16,6 +16,8 @@ class AssistantUI {
     this.micBtn = document.getElementById("chat-mic");
     this.quickQuestions = document.getElementById("quick-questions");
     this.toastContainer = document.getElementById("toast-container");
+    this.langSelect = document.getElementById("chat-lang");
+    this.selectedLang = "en";
 
     this.isOpen = false;
     this.currentZone = "welcome";
@@ -77,9 +79,33 @@ class AssistantUI {
     }
   }
 
+  _updateVoiceForLang(langCode) {
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(v => v.lang.startsWith(langCode));
+    if (voice) {
+      this._selectedVoice = voice;
+      this._voiceReady = true;
+    }
+    // Update STT lang too
+    if (this._recognition) {
+      this._recognition.lang = langCode === 'en' ? 'en-IN' : 
+                               langCode === 'hi' ? 'hi-IN' : 
+                               langCode;
+    }
+  }
+
   _bindEvents() {
     this.toggle.addEventListener("click", () => this.togglePanel());
     this.closeBtn.addEventListener("click", () => this.closePanel());
+    
+    if (this.langSelect) {
+      this.langSelect.addEventListener("change", (e) => {
+        this.selectedLang = e.target.value;
+        this._updateVoiceForLang(this.selectedLang);
+        this.clearHistory(); // clear context when switching languages for "neatness"
+      });
+    }
+
     this.form.addEventListener("submit", (e) => {
       e.preventDefault();
       this.sendMessage();
@@ -168,7 +194,9 @@ class AssistantUI {
   _stopRecording() {
     this._isRecording = false;
     if (this.micBtn) this.micBtn.classList.remove("recording");
-    if (this.input) this.input.placeholder = "Ask about elections…";
+    if (this.input) {
+      this.input.placeholder = "Ask about elections…";
+    }
   }
 
   togglePanel() {
@@ -335,6 +363,7 @@ class AssistantUI {
         body: JSON.stringify({
           question,
           zoneId: this.currentZone,
+          language: this.selectedLang,
           conversationHistory: this.conversationHistory.slice(-6),
         }),
       });
@@ -588,7 +617,15 @@ class AssistantUI {
 
     // 🎤 Gnan voice profile — professional and warm Indian guide
     if (this._selectedVoice) utterance.voice = this._selectedVoice;
-    utterance.lang   = "en-IN";
+    
+    // Auto-select lang-specific voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const langVoice = voices.find(v => v.lang.startsWith(this.selectedLang));
+    if (langVoice) utterance.voice = langVoice;
+
+    utterance.lang   = this.selectedLang === 'hi' ? 'hi-IN' : 
+                       this.selectedLang === 'en' ? 'en-IN' : 
+                       this.selectedLang;
     utterance.rate   = 1.05;  // natural, energetic pace
     utterance.pitch  = 1.0;   // natural pitch
     utterance.volume = 1.0;
