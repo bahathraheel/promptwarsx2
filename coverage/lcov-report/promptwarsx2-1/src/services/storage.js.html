@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/18</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/18</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -124,15 +124,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,49 +140,49 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * Google Cloud Storage service for ELITE ELECTION.
  * Stores generated TTS audio and static assets.
  */
 &nbsp;
-async function uploadBuffer(
+async function <span class="fstat-no" title="function not covered" >uploadBuffer(</span>
   bucketName,
   fileName,
   buffer,
-  contentType = "application/octet-stream",
+  contentType = <span class="branch-0 cbranch-no" title="branch not covered" >"application/octet-stream",</span>
 ) {
-  try {
-    const { Storage } = require("@google-cloud/storage");
-    const storage = new Storage({
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const { Storage } = <span class="cstat-no" title="statement not covered" >require("@google-cloud/storage");</span>
+    const storage = <span class="cstat-no" title="statement not covered" >new Storage({</span>
       projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
-    const bucket = storage.bucket(bucketName || <span class="branch-1 cbranch-no" title="branch not covered" >process.env.GCS_BUCKET_NAME)</span>;
-    const file = bucket.file(fileName);
+    const bucket = <span class="cstat-no" title="statement not covered" >storage.bucket(bucketName || process.env.GCS_BUCKET_NAME);</span>
+    const file = <span class="cstat-no" title="statement not covered" >bucket.file(fileName);</span>
 &nbsp;
-    await file.save(buffer, { contentType, resumable: false });
+<span class="cstat-no" title="statement not covered" >    await file.save(buffer, { contentType, resumable: false });</span>
 <span class="cstat-no" title="statement not covered" >    await file.makePublic();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return {</span>
@@ -190,29 +190,29 @@ async function uploadBuffer(
       success: true,
     };
   } catch (error) {
-    console.warn("[Storage] Upload failed:", error.message);
-    return { url: null, success: false, fallback: true };
+<span class="cstat-no" title="statement not covered" >    console.warn("[Storage] Upload failed:", error.message);</span>
+<span class="cstat-no" title="statement not covered" >    return { url: null, success: false, fallback: true };</span>
   }
 }
 &nbsp;
-async function downloadFile(bucketName, fileName) {
-  try {
-    const { Storage } = require("@google-cloud/storage");
-    const storage = new Storage({
+async function <span class="fstat-no" title="function not covered" >downloadFile(</span>bucketName, fileName) {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const { Storage } = <span class="cstat-no" title="statement not covered" >require("@google-cloud/storage");</span>
+    const storage = <span class="cstat-no" title="statement not covered" >new Storage({</span>
       projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
-    const [contents] = await storage
+    const [contents] = <span class="cstat-no" title="statement not covered" >await storage</span>
       .bucket(bucketName)
       .file(fileName)
       .download();
 <span class="cstat-no" title="statement not covered" >    return { data: contents, success: true };</span>
   } catch (error) {
-    console.warn("[Storage] Download failed:", error.message);
-    return { data: null, success: false };
+<span class="cstat-no" title="statement not covered" >    console.warn("[Storage] Download failed:", error.message);</span>
+<span class="cstat-no" title="statement not covered" >    return { data: null, success: false };</span>
   }
 }
 &nbsp;
-module.exports = { uploadBuffer, downloadFile };
+<span class="cstat-no" title="statement not covered" >module.exports = { uploadBuffer, downloadFile };</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -220,7 +220,7 @@ module.exports = { uploadBuffer, downloadFile };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-30T03:12:42.750Z
+                at 2026-04-30T03:26:36.141Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

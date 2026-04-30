@@ -58,7 +58,8 @@ class AssistantUI {
     // Add welcome message if first open
     if (this.messages.children.length === 0) {
       this.addBotMessage(
-        "👋 Welcome! I'm your **ELITE Election Guide** — an AI-powered, non-partisan assistant.\n\n" +
+        "👋 HEY I AM GNAN HOW CAN I ASSIST YOU\n\n" +
+          "I am your highly capable Election Guide powered by Google and Gemini. " +
           "I can help you with:\n" +
           "• 📝 Voter registration\n" +
           "• 📅 Election timelines & deadlines\n" +

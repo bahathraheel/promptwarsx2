@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -115,92 +115,92 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * Google Cloud Translation service for ELITE ELECTION.
  * Multi-language support for election content.
  */
 &nbsp;
-async function translateText(text, targetLanguage, sourceLanguage = null) {
-  if (process.env.ENABLE_TRANSLATION !== "true") {
-    return { translatedText: text, detectedLanguage: "en", fallback: true };
+async function <span class="fstat-no" title="function not covered" >translateText(</span>text, targetLanguage, sourceLanguage = <span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+<span class="cstat-no" title="statement not covered" >  if (process.env.ENABLE_TRANSLATION !== "true") {</span>
+<span class="cstat-no" title="statement not covered" >    return { translatedText: text, detectedLanguage: "en", fallback: true };</span>
   }
 &nbsp;
-  try {
-    const { Translate } = require("@google-cloud/translate").v2;
-    const translate = new Translate({
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const { Translate } = <span class="cstat-no" title="statement not covered" >require("@google-cloud/translate").v2;</span>
+    const translate = <span class="cstat-no" title="statement not covered" >new Translate({</span>
       projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
 &nbsp;
-    const options = { to: targetLanguage };
-    if (sourceLanguage) options.from = sourceLanguage;
+    const options = <span class="cstat-no" title="statement not covered" >{ to: targetLanguage };</span>
+<span class="cstat-no" title="statement not covered" >    if (sourceLanguage) <span class="cstat-no" title="statement not covered" >options.from = sourceLanguage;</span></span>
 &nbsp;
-    const [translation] = await translate.translate(text, options);
-    return {
+    const [translation] = <span class="cstat-no" title="statement not covered" >await translate.translate(text, options);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       translatedText: translation,
       detectedLanguage: sourceLanguage || "auto",
       fallback: false,
     };
   } catch (error) {
-    console.warn("[Translation] Service unavailable:", error.message);
-    return { translatedText: text, detectedLanguage: "en", fallback: true };
+<span class="cstat-no" title="statement not covered" >    console.warn("[Translation] Service unavailable:", error.message);</span>
+<span class="cstat-no" title="statement not covered" >    return { translatedText: text, detectedLanguage: "en", fallback: true };</span>
   }
 }
 &nbsp;
-async function detectLanguage(text) {
-  try {
-    const { Translate } = require("@google-cloud/translate").v2;
-    const translate = new Translate({
+async function <span class="fstat-no" title="function not covered" >detectLanguage(</span>text) {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const { Translate } = <span class="cstat-no" title="statement not covered" >require("@google-cloud/translate").v2;</span>
+    const translate = <span class="cstat-no" title="statement not covered" >new Translate({</span>
       projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
-    const [detections] = await translate.detect(text);
-    return Array.isArray(detections) ? detections[0] : detections;
+    const [detections] = <span class="cstat-no" title="statement not covered" >await translate.detect(text);</span>
+<span class="cstat-no" title="statement not covered" >    return Array.isArray(detections) ? detections[0] : detections;</span>
   } catch (error) {
-    console.warn("[Translation] Detection unavailable:", error.message);
-    return { language: "en", confidence: 0 };
+<span class="cstat-no" title="statement not covered" >    console.warn("[Translation] Detection unavailable:", error.message);</span>
+<span class="cstat-no" title="statement not covered" >    return { language: "en", confidence: 0 };</span>
   }
 }
 &nbsp;
-module.exports = { translateText, detectLanguage };
+<span class="cstat-no" title="statement not covered" >module.exports = { translateText, detectLanguage };</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -208,7 +208,7 @@ module.exports = { translateText, detectLanguage };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-30T03:12:42.750Z
+                at 2026-04-30T03:26:36.141Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

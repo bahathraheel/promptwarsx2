@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -125,24 +125,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,44 +145,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * Google Cloud Text-to-Speech service for ELITE ELECTION.
  * Converts assistant text responses to audio.
  */
 &nbsp;
-async function synthesizeSpeech(
+async function <span class="fstat-no" title="function not covered" >synthesizeSpeech(</span>
   text,
-  languageCode = "en-US",
-  voiceName = null,
+  languageCode = <span class="branch-0 cbranch-no" title="branch not covered" >"en-US",</span>
+  voiceName = <span class="branch-0 cbranch-no" title="branch not covered" >null,</span>
 ) {
-  if (process.env.ENABLE_TTS !== "true") {
-    return {
+<span class="cstat-no" title="statement not covered" >  if (process.env.ENABLE_TTS !== "true") {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       fallback: true,
       message: "TTS disabled, use browser SpeechSynthesis",
     };
   }
 &nbsp;
-  try {
-    const textToSpeech = require("@google-cloud/text-to-speech");
-    const client = new textToSpeech.TextToSpeechClient();
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const textToSpeech = <span class="cstat-no" title="statement not covered" >require("@google-cloud/text-to-speech");</span>
+    const client = <span class="cstat-no" title="statement not covered" >new textToSpeech.TextToSpeechClient();</span>
 &nbsp;
-    const request = {
+    const request = <span class="cstat-no" title="statement not covered" >{</span>
       input: { text },
       voice: {
         languageCode,
@@ -203,22 +203,22 @@ async function synthesizeSpeech(
       },
     };
 &nbsp;
-    const [response] = await client.synthesizeSpeech(request);
-    return {
+    const [response] = <span class="cstat-no" title="statement not covered" >await client.synthesizeSpeech(request);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       audioContent: response.audioContent.toString("base64"),
       contentType: "audio/mp3",
       fallback: false,
     };
   } catch (error) {
-    console.warn("[TTS] Service unavailable:", error.message);
-    return {
+<span class="cstat-no" title="statement not covered" >    console.warn("[TTS] Service unavailable:", error.message);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
       fallback: true,
       message: "TTS unavailable, use browser SpeechSynthesis",
     };
   }
 }
 &nbsp;
-module.exports = { synthesizeSpeech };
+<span class="cstat-no" title="statement not covered" >module.exports = { synthesizeSpeech };</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -226,7 +226,7 @@ module.exports = { synthesizeSpeech };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-30T03:12:42.750Z
+                at 2026-04-30T03:26:36.141Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

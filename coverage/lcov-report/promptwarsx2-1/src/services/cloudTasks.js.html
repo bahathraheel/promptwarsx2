@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.28% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.28% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,12 +109,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,27 +134,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * Google Cloud Tasks service for ELITE ELECTION.
  * Queue background tasks for analytics and logging.
  */
 &nbsp;
-async function createTask(queueName, payload, delaySeconds = 0) {
-  try {
-    const { CloudTasksClient } = require("@google-cloud/tasks");
-    const client = new CloudTasksClient();
-    const project = process.env.GOOGLE_CLOUD_PROJECT;
-    const location = process.env.CLOUD_TASKS_LOCATION || "us-central1";
-    const parent = client.queuePath(project, location, queueName);
+async function <span class="fstat-no" title="function not covered" >createTask(</span>queueName, payload, delaySeconds = <span class="branch-0 cbranch-no" title="branch not covered" >0)</span> {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const { CloudTasksClient } = <span class="cstat-no" title="statement not covered" >require("@google-cloud/tasks");</span>
+    const client = <span class="cstat-no" title="statement not covered" >new CloudTasksClient();</span>
+    const project = <span class="cstat-no" title="statement not covered" >process.env.GOOGLE_CLOUD_PROJECT;</span>
+    const location = <span class="cstat-no" title="statement not covered" >process.env.CLOUD_TASKS_LOCATION || "us-central1";</span>
+    const parent = <span class="cstat-no" title="statement not covered" >client.queuePath(project, location, queueName);</span>
 &nbsp;
     const task = <span class="cstat-no" title="statement not covered" >{</span>
       httpRequest: {
@@ -174,15 +174,15 @@ async function createTask(queueName, payload, delaySeconds = 0) {
     const [response] = <span class="cstat-no" title="statement not covered" >await client.createTask({ parent, task });</span>
 <span class="cstat-no" title="statement not covered" >    return { name: response.name, success: true };</span>
   } catch (error) {
-    console.warn(
+<span class="cstat-no" title="statement not covered" >    console.warn(</span>
       "[CloudTasks] Service unavailable, processing synchronously:",
       error.message,
     );
-    return { success: false, fallback: true };
+<span class="cstat-no" title="statement not covered" >    return { success: false, fallback: true };</span>
   }
 }
 &nbsp;
-module.exports = { createTask };
+<span class="cstat-no" title="statement not covered" >module.exports = { createTask };</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -190,7 +190,7 @@ module.exports = { createTask };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-30T03:12:42.750Z
+                at 2026-04-30T03:26:36.141Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
